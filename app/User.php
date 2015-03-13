@@ -5,6 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
@@ -30,5 +31,69 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 * @var array
 	 */
 	protected $hidden = ['password', 'remember_token'];
+
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('App\Role')->withTimestamps();
+    }
+
+
+    /**
+     * Does the user have a particular role?
+     *
+     * @param $name
+     * @return bool
+     */
+    public function hasRole($name)
+    {
+        foreach ($this->roles as $role)
+        {
+            if ($role->name == $name) return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Assign a role to the user
+     *
+     * @param $role
+     * @return mixed
+     */
+    public function assignRole($role)
+    {
+        return $this->roles()->attach($role);
+    }
+
+
+    /**
+     * Remove a role from a user
+     *
+     * @param $role
+     * @return mixed
+     */
+    public function removeRole($role)
+    {
+        return $this->roles()->detach($role);
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('Admin');
+    }
+
+    public function isSuperadmin()
+    {
+        return $this->hasRole('Superadmin');
+    }
 
 }

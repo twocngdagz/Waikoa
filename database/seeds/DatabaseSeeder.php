@@ -13,8 +13,10 @@ class DatabaseSeeder extends Seeder {
 	public function run()
 	{
 		Model::unguard();
+        DB::table('role_user')->truncate();
+        $this->call('RoleTableSeeder');
+		$this->call('UserTableSeeder');
 
-		// $this->call('UserTableSeeder');
 	}
 
 }
