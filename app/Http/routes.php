@@ -23,7 +23,9 @@ Route::post('course/update', 'CourseController@update');
 // user routes
 Route::get('users',             'UserController@index');
 Route::get('user/edit/{id}',    'UserController@edit')->where('id','\d+');
-Route::post('user/update',        'UserController@update');
+Route::post('user/update',      'UserController@update');
+Route::get('user/profile',      'UserController@getProfile')->where('id','\d+');
+Route::post('user/profile',      'UserController@saveProfile');
 
 // role routes
 Route::get('roles',             'RoleController@index');

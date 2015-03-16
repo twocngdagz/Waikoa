@@ -3,6 +3,7 @@
 
 use App\User;
 use Request;
+use Auth;
 
 class UserController extends Controller {
 
@@ -58,6 +59,33 @@ class UserController extends Controller {
         $user->email = $data['email'];
         $user->save();
         return redirect('users');
+    }
+
+    public function getProfile()
+    {
+        $user = Auth::user();
+        return view('user.profile')->with('user', $user);
+    }
+
+    public function saveProfile()
+    {
+        $user_id = Request::get('user_id');
+        $user = User::findOrFail($user_id);
+        $user->name = Request::get('name');
+        $user->email = Request::get('email');
+        $user->job_title = Request::get('job_title');
+        $user->company_name = Request::get('company_name');
+        $user->company_url = Request::get('company_url');
+        $user->is_share_profile_student = Request::get('is_share_profile_student');
+        $user->is_share_profile_public = Request::get('is_share_profile_public');
+        $user->telephone = Request::get('telephone');
+        $user->mobile_phone = Request::get('mobile_phone');
+        $user->address = Request::get('address');
+        $user->fax = Request::get('fax');
+        $user->is_share_contact = Request::get('is_share_contact');
+        $user->save();
+        return view('user.profile')->with('success', true)->with('user', $user);
+
     }
 
 }
