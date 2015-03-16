@@ -12,14 +12,20 @@
 */
 
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
 
+// course routes
+Route::get('courses', 'CourseController@index');
+Route::get('course/create', 'CourseController@create');
+Route::get('course/edit/{id}', 'CourseController@edit')->where('id','\d+');
+Route::post('course/update', 'CourseController@update');
+
+// user routes
 Route::get('users',             'UserController@index');
 Route::get('user/edit/{id}',    'UserController@edit')->where('id','\d+');
 Route::post('user/update',        'UserController@update');
 
-
+// role routes
 Route::get('roles',             'RoleController@index');
 Route::get('role/edit/{id}',    'RoleController@edit')->where('id', '\d+');
 Route::post('role/update',      'RoleController@update');
