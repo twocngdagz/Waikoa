@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Role;
+use App\Waikoa\Model\Role;
 class RoleTableSeeder extends Seeder {
 
     public function run()
