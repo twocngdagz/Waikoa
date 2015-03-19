@@ -6,10 +6,24 @@ use App\Debug;
 use App\Course;
 use App\Schema;
 use App\Http\Requests;
+use Request;
+use Auth;
+use Route;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
-class CourseController extends Controller {
+//@TODO: validation, saving data(dropdowns), deletion, view model
+class CourseController extends Controller 
+{
+
+	/**
+     * Constructor Method.
+     * @method void middleware('auth') instantiates role extension
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
 	/**
 	 * Display a listing of the resource.
@@ -29,13 +43,8 @@ class CourseController extends Controller {
 	 */
 	public function create()
 	{
-		$course = new Course;		
-		$attributes = $course->columns();		
-        return view('course.form', [
-			'course' => $course,
-			'formName' => 'Create',
-			'attributes' => $attributes
-		]);
+		$course = new Course;
+		return view('course.form', $this->labels($course)); 
 	}
 
 	/**
@@ -45,7 +54,16 @@ class CourseController extends Controller {
 	 */
 	public function store()
 	{
-		//
+		$course = new Course;
+		$course->user_id = Auth::user()->id;
+
+		//set class size values
+		$data = $this->classSize(Request::get('Course'));
+		
+		// save model
+		$course->saveFillable($course, $data);
+		
+		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');
 	}
 
 	/**
@@ -66,12 +84,14 @@ class CourseController extends Controller {
 	 * @return Response
 	 */
 	public function edit($id)
-    {
+    {		
         $course = Course::findOrFail($id);
-        return view('course.form', [
-			'course' => $course,
-			'formName' => 'Update'
-		]);
+		$classSize = $this->displayClassSize($course);
+		
+		$params = $this->labels($course);		
+		$params['classSize'] = $classSize;
+		
+        return view('course.form', $params);
     }
 
 	/**
@@ -82,13 +102,17 @@ class CourseController extends Controller {
 	 */
 	public function update() 
 	{
-        $data = Request::all();
+	
+        $data = Request::get('Course');
         $course = Course::findOrFail($data['course_id']);
-        $course->name = $data['name'];
-        $course->email = $data['email'];
-        $course->save();
 		
-        return redirect('courses');
+		//set class size values
+		$data = $this->classSize(Request::get('Course'));
+		
+		// save model
+		$course->saveFillable($course, $data);		
+		
+		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'successfully updated!');
     }
 
 	/**
@@ -100,6 +124,80 @@ class CourseController extends Controller {
 	public function destroy($id)
 	{
 		//
+	}
+	
+	/**
+	 * Set Column Labels.
+	 *
+	 * @param  obj  $course course model
+	 * @return array $labels label values
+	 */
+	protected function labels($course)
+	{
+		$labels = [
+			'course' => $course,
+			'formName' => $course->exists ? 'Update Course' : 'Create Course',
+			'information' => [
+				'name', 'student_name','student_name_pl', 'instructor_name', 'materials_name', 
+				'materials_name_pl', 'events_name', 'events_name_pl', 
+				'webinars_name', 'webinars_name_pl', 'home_name', 'download_link'
+			],	
+			'radio' => ['class_size_a', 'class_size_b', 'class_size_c'],
+			'dropDown' => ['comments_allowed', 'always_on_pre', 'always_on_post'],
+			'schedule' => [
+				'class_start', 'class_end', 'access_start', 'access_end', 'register_start', 
+				'register_end'
+			],
+			'mailServer' => [ 'smtp_email', 'smtp_name', 'smtp_server', 'smtp_user']			
+		];
+		
+		return $labels;
+	}
+	
+	/**
+	 * Set Class Size Values.
+	 *
+	 * @param  array  $data course model values
+	 * @return array $data course model values
+	 */
+	protected function classSize($data) 
+	{
+		$className = ['class_size_a', 'class_size_b', 'class_size_c'];
+		
+		foreach($className as $value) {
+			if ($data[$value] == 1) {
+				$data[$value] = $data[$value . '_limit'];
+			}
+		}
+		
+		return $data;
+	}
+	
+	/**
+	 * Display Class Size Values.
+	 *
+	 * @param  obj  $model course model
+	 * @return array $classSize html attribute values
+	 */
+	protected function displayClassSize($model) 
+	{
+		$classSize = [
+			'class_size_a' => ['unlimited'=>'', 'limited'=>'', 'visibility'=>'hidden'],
+			'class_size_b' => ['unlimited'=>'', 'limited'=>'', 'visibility'=>'hidden'],
+			'class_size_c' => ['unlimited'=>'', 'limited'=>'', 'visibility'=>'hidden'],
+		];
+		
+		foreach ($classSize as $key => $value) {
+			if ($model->$key == 0) {
+				$classSize[$key]['unlimited'] = 'checked';
+				$classSize[$key]['visibility'] = 'hidden';
+			} else {
+				$classSize[$key]['limited'] = 'checked';
+				$classSize[$key]['visibility'] = '';
+			}
+		}
+		
+		return $classSize;
 	}
 
 }
