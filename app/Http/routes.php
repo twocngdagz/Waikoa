@@ -17,6 +17,7 @@ Route::get('home',              'HomeController@index');
 // course routes
 Route::get('courses',           'CourseController@index');
 Route::get('course/create',     'CourseController@create');
+Route::post('course/create',     'CourseController@create');
 Route::get('course/edit/{id}',  'CourseController@edit')->where('id','\d+');
 Route::post('course/update',    'CourseController@update');
 
