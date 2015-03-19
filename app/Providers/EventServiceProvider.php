@@ -2,6 +2,8 @@
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Events\UserHasRegistered;
+use App\Handlers\Events\RedirectUserToPaypalPayment;
 
 class EventServiceProvider extends ServiceProvider {
 
@@ -11,9 +13,12 @@ class EventServiceProvider extends ServiceProvider {
 	 * @var array
 	 */
 	protected $listen = [
-		'event.name' => [
-			'EventListener',
-		],
+		'App\Events\UserHasRegistered' => [
+                'App\Handlers\Events\RedirectUserToPaypalPayment',
+            ],
+        'App\Events\UserHasReturnToWebsite' => [
+                'App\Handlers\Events\RegisterAuthenticateUser',
+            ]
 	];
 
 	/**
