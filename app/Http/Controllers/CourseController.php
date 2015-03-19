@@ -65,8 +65,7 @@ class CourseController extends Controller
 		$data = $this->classSize(Request::get('Course'));
 		
 		// save model
-		$course->saveFillable($course, $data);
-		
+		$course->saveFillable($course, $data);		
 		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');
 	}
 
