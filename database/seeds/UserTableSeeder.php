@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Waikoa\Model\User;
+use App\User;
 use App\Waikoa\Model\Role;
 class UserTableSeeder extends Seeder {
 
