@@ -44,7 +44,11 @@ class CourseController extends Controller
 	public function create()
 	{
 		$course = new Course;
-		return view('course.form', $this->labels($course)); 
+		$classSize = $this->displayClassSize($course);
+		
+		$params = $this->labels($course);		
+		$params['classSize'] = $classSize;
+		return view('course.form', $params); 
 	}
 
 	/**
