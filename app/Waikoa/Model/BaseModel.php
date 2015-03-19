@@ -1,4 +1,4 @@
-<?php namespace App;
+<?php namespace App\Waikoa\Model;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;

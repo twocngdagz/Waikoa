@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 
-use App\Role;
+use App\Waikoa\Model\Role;
 use Request;
 
 class RoleController extends Controller {
