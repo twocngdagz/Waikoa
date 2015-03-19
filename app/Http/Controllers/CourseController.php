@@ -3,7 +3,7 @@
 // Debugging
 use App\Debug;
 
-use App\Course;
+use App\Waikoa\Model\Course;
 use App\Schema;
 use App\Http\Requests;
 use Request;

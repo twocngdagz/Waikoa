@@ -7,7 +7,7 @@
             <div class="page-header">
                 <h1><small>User Registration</small></h1>
             </div>
-            <form class="form-horizontal" role="form" method="POST" action="/auth/register">
+            <form class="form-horizontal" role="form" method="POST" action="{{action('PaymentController@pay')}}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="panel panel-default">
                     <div class="panel-heading">Select a course</div>

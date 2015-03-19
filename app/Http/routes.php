@@ -11,22 +11,25 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-Route::get('home', 'HomeController@index');
+Route::get('/',                 'WelcomeController@index');
+Route::get('home',              'HomeController@index');
 
 // course routes
-Route::get('courses', 'CourseController@index');
-Route::get('course/create', 'CourseController@create');
-Route::post('course/create', 'CourseController@store');
-Route::get('course/edit/{id}', 'CourseController@edit')->where('id','\d+');
-Route::post('course/update', 'CourseController@update');
+Route::get('courses',           'CourseController@index');
+Route::get('course/create',     'CourseController@create');
+Route::get('course/edit/{id}',  'CourseController@edit')->where('id','\d+');
+Route::post('course/update',    'CourseController@update');
 
 // user routes
 Route::get('users',             'UserController@index');
 Route::get('user/edit/{id}',    'UserController@edit')->where('id','\d+');
 Route::post('user/update',      'UserController@update');
 Route::get('user/profile',      'UserController@getProfile')->where('id','\d+');
-Route::post('user/profile',      'UserController@saveProfile');
+Route::post('user/profile',     'UserController@saveProfile');
+
+
+Route::post('pay',              'PaymentController@pay');
+Route::get('success',           'PaymentController@successPayment');
 
 // role routes
 Route::get('roles',             'RoleController@index');

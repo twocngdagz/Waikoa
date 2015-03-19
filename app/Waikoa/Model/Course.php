@@ -1,4 +1,6 @@
-<?php namespace App;
+<?php namespace App\Waikoa\Model;
+
+use App\Waikoa\Model\BaseModel;
 
 class Course extends BaseModel {
 
