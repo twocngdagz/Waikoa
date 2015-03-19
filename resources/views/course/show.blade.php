@@ -2,6 +2,16 @@
 
 @section('content')
 <div class="container">
+
+	@if(Session::has('warning'))
+		<div class="alert-box success">						
+			<div class="alert alert-warning">
+				<strong>Oops:</strong> 
+				{{ Session::get('warning') }}
+			</div>
+		</div>
+	@endif
+
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">

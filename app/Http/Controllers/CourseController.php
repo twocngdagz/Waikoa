@@ -10,6 +10,7 @@ use Request;
 use Auth;
 use Route;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 //@TODO: validation, saving data(dropdowns), deletion, view model
 class CourseController extends Controller 
@@ -45,9 +46,11 @@ class CourseController extends Controller
 	{
 		$course = new Course;
 		$classSize = $this->displayClassSize($course);
+		$selected = $this->displayOptions($course);
 		
 		$params = $this->labels($course);		
 		$params['classSize'] = $classSize;
+		$params['selected'] = $selected;
 		return view('course.form', $params); 
 	}
 
@@ -65,7 +68,7 @@ class CourseController extends Controller
 		$data = $this->classSize(Request::get('Course'));
 		
 		// save model
-		$course->saveFillable($course, $data);		
+		$course->saveFillable($course, $data);
 		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');
 	}
 
@@ -76,8 +79,18 @@ class CourseController extends Controller
 	 * @return Response
 	 */
 	public function show($id)
-	{
-		//
+	{	
+		// redirect if model not found
+		try {
+			$course = Course::findOrFail($id);			
+		
+		} catch(ModelNotFoundException $e) {
+			return redirect("courses")->withInput()->with('warning', 'Record not found.');
+		}
+		
+		$params = $this->labels($course);
+		$params['course'] = $course;
+		return view('course.view',$params);
 	}
 
 	/**
@@ -87,12 +100,21 @@ class CourseController extends Controller
 	 * @return Response
 	 */
 	public function edit($id)
-    {		
-        $course = Course::findOrFail($id);
+    {
+		// redirect if model not found
+		try {
+			$course = Course::findOrFail($id);			
+		
+		} catch(ModelNotFoundException $e) {
+			return redirect("courses")->withInput()->with('warning', 'Record not found.');
+		}
+		
 		$classSize = $this->displayClassSize($course);
+		$selected = $this->displayOptions($course);
 		
 		$params = $this->labels($course);		
 		$params['classSize'] = $classSize;
+		$params['selected'] = $selected;
 		
         return view('course.form', $params);
     }
@@ -202,5 +224,31 @@ class CourseController extends Controller
 		
 		return $classSize;
 	}
+	
+	/**
+	 * Display Option Values.
+	 *
+	 * @param  obj  $model course model
+	 * @return array $selected html attribute values
+	 */
+	protected function displayOptions($model) 
+	{		
+		$selected = [
+			'comments_allowed' => ['yes'=>'', 'no'=>''], 
+			'always_on_pre' => ['yes'=>'', 'no'=>''], 
+			'always_on_post' => ['yes'=>'', 'no'=>''], 
+		];
+		
+		foreach ($selected as $key => $value) {
+			if ($model->$key == 0) {
+				$selected[$key]['no'] = 'selected';				
+			} else {
+				$classSize[$key]['yes'] = 'selected';				
+			}
+		}
+		
+		return $selected;
+	}
+	
 
 }
