@@ -42,7 +42,6 @@ class RegisterAuthenticateUser {
         if ($response->isSuccessful())
         {
             Auth::login(User::create($params['data']));
-            Session::forget('params');
         }
 	}
 
