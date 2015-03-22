@@ -3,6 +3,7 @@
 
 use App\Commands\UserRedirectFromPaypalPaymentCommand;
 use App\Commands\UserRegisterCommand;
+use App\Http\Requests\CreateUserRequest;
 use App\User;
 use Request;
 use Auth;
@@ -11,7 +12,7 @@ use Session;
 
 class PaymentController extends Controller {
 
-    public function pay()
+    public function pay(CreateUserRequest $request)
     {
         return $this->dispatch(new UserRegisterCommand(Request::all()));
 

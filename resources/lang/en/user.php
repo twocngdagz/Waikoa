@@ -1,0 +1,45 @@
+<?php
+
+return [
+
+    // User
+    'name' => 'Name',
+    'email_address' => 'E-Mail Address',
+    'password' => 'Password',
+    'password_confirmation' => 'Confirm Password',
+    'job_title' => 'Job Title',
+    'company_name' => 'Company Name',
+    'company_url' => 'Company URL',
+    'share_profile' => 'Share Profile',
+    'share_my_profile_student' => 'Share my profile info with other student',
+    'share_my_profile_public' => 'Share my basic profile info publicly available',
+    'telephone' => 'Telephone',
+    'mobile_phone' => 'Mobile Phone',
+    'address' => 'Address',
+    'fax' => 'Fax',
+    'share_contact' => 'Share my contacts',
+    'share_contact_student' => 'Share my contact info with other student',
+    'share_contact_info' => 'Your contact info will never be shared on a public page',
+    'groups'=> 'Groups',
+    'group_1' => 'Group 1',
+    'group_2' => 'Group 2',
+    'group_3' => 'Group 3',
+    'group_1_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    'group_2_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    'group_3_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
+    'register' => 'Register',
+
+    'page_title' => 'User Registration',
+    'credentials' => 'Credentials',
+    'basic' => 'Basic Profile Information',
+    'contact' => 'Contact Information',
+    'group' => 'Select Groups',
+
+    'error_title' => 'Whoops! There were some problems with your input.',
+    'error_name' => 'The name is required',
+    'error_email' => 'The email is required',
+    'error_password' => 'The password is required',
+    'error_password_confirmation' => 'The password confirmation field is required',
+    'error_email_format' => 'The email must have a proper format',
+    'error_password_match' => 'The password does not match',
+];
