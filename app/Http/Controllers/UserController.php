@@ -4,6 +4,7 @@
 use App\User;
 use Request;
 use Auth;
+use App\Waikoa\Model\Role;
 
 class UserController extends Controller {
 
@@ -47,7 +48,12 @@ class UserController extends Controller {
 
         $user = User::findOrFail($id);
 
-        return view('user.edit')->with('user', $user);
+        if ($user->hasRole('Superadmin')) {
+            $roles =  Role::all();
+        } else {
+            $roles =  Role::all()->forget(0);
+        }
+        return view('user.edit', compact('user', 'roles'));
     }
 
 
