@@ -7,6 +7,7 @@
 	<title>Laravel</title>
 
 	<link href="/css/app.css" rel="stylesheet">
+	<link href="/css/waikoa.css" rel="stylesheet">
 	
 	<!-- Jquery Ui -->
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
@@ -31,7 +32,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">Waikoa</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

@@ -17,7 +17,7 @@ class EventServiceProvider extends ServiceProvider {
                 'App\Handlers\Events\RedirectUserToPaypalPayment',
             ],
         'App\Events\UserHasReturnToWebsite' => [
-                'App\Handlers\Events\RegisterAuthenticateUser',
+                'App\Handlers\Events\RegisterAuthenticateUser','App\Handlers\Events\SendEmailAfterUserRegistration'
             ]
 	];
 

@@ -21,7 +21,7 @@
 				@endif
 				
 				<!-- Basic Course Information -->
-				<div class="panel panel-default">
+				<div class="panel panel-yellow">
 					<div class="panel-heading">Basic Course Information</div>             
 					<div class="panel-body">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -39,7 +39,7 @@
 				</div>
 				
 				<!-- Course Options -->				
-				<div class="panel panel-default">
+				<div class="panel panel-yellow">
 					<div class="panel-heading">Course Options</div>             
 					<div class="panel-body">						
 						
@@ -60,9 +60,9 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label radio-inline">{{ Lang::get('fields.'.$value) }}</label>
 								<div class="col-md-6">								
-									<select name="Course[date_visible_offset]">									
-									<option value="1" selected>Yes</option>
-									<option value="0">No</option>
+									<select name="Course[{{ $value }}]">									
+									<option value="1" {{ $selected[$value]['yes'] }}>Yes</option>
+									<option value="0" {{ $selected[$value]['no'] }}>No</option>
 								</select>
 								</div>
 							</div>
@@ -86,7 +86,7 @@
 							<label class="col-md-4 control-label">{{ Lang::get('fields.email_notif_offset') }}</label>
 							<div class="col-md-6">								
 								<select name="Course[email_notif_offset]">
-									<option value="-5">5 days before</option>
+									<option value="-5" >5 days before</option>
 									<option value="-4">4 days before</option>
 									<option value="-3">3 days before</option>
 									<option value="-2">2 days before</option>
@@ -114,7 +114,7 @@
 				</div>
 				
 				<!-- Course schedule -->
-				<div class="panel panel-default">
+				<div class="panel panel-yellow">
 					<div class="panel-heading">Course Schedule</div>             
 					<div class="panel-body">						
 						@foreach ($schedule as $value)							
@@ -129,7 +129,7 @@
 				</div>
 				
 				<!-- Course Mail Server -->
-				<div class="panel panel-default">
+				<div class="panel panel-yellow">
 					<div class="panel-heading">Course Mail Server</div>             
 					<div class="panel-body">
 						@foreach ($mailServer as $value)							

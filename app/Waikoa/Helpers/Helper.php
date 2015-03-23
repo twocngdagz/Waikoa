@@ -23,4 +23,29 @@ class Helper {
 
         return $data;
     }
+	
+	/**
+	 * Display Option Values.
+	 *
+	 * @param  obj  $model course model
+	 * @return array $selected html attribute values
+	 */
+	public static function displayOptions($model) 
+	{		
+		$selected = [
+			'comments_allowed' => ['yes'=>'', 'no'=>''], 
+			'always_on_pre' => ['yes'=>'', 'no'=>''], 
+			'always_on_post' => ['yes'=>'', 'no'=>''], 
+		];
+		
+		foreach ($selected as $key => $value) {
+			if ($model->$key == 0) {
+				$selected[$key]['no'] = 'selected';				
+			} else {
+				$classSize[$key]['yes'] = 'selected';				
+			}
+		}
+		
+		return $selected;
+	}
 }
