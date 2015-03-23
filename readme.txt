@@ -1,7 +1,7 @@
 =======================
 WAIKOA INSTALLATION
 =======================
-- make sure you have installed git bash software and composer software
+- make sure you have installed  an updated version of git bash and composer software
 http://git-scm.com/downloads
 https://getcomposer.org/
 
