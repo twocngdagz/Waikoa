@@ -19,8 +19,7 @@ Route::get('courses',           'CourseController@index');
 Route::get('course/create',     'CourseController@create');
 Route::post('course/create',    'CourseController@store');
 Route::get('course/edit/{id}',  'CourseController@edit')->where('id','\d+');
-Route::get('course/edit/{id}',  'CourseController@edit')->where('id','\d+');
-Route::post('course/update',    'CourseController@update');
+Route::post('course/edit/', 'CourseController@update');
 Route::get('course/view/{id}',  'CourseController@show')->where('id','\d+');
 
 // user routes

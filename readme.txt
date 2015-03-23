@@ -38,7 +38,7 @@ SESSION_DRIVER=file
 
 - open your terminal/command line and go to your project folder and run the command "php artisan migrate" to run the migration code and install the database on your sql server
 
-- run  on the terminal/command line php artisan serve and get the url to test the application (for development only, for product use virtual hosts)
+- run  on the terminal/command line php artisan serve and get the url to test the application (for development only, for production use virtual hosts)
 
 
 

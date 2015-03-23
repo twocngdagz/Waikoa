@@ -24,11 +24,11 @@ class PaymentController extends Controller {
         Session::put('params', $params);
         Session::save();
 
-        $gateway = Omnipay::create('PayPal_Express');
-        $gateway->setUsername('twocngdagz-facilitator_api1.yahoo.com');
-        $gateway->setPassword('1399860799');
-        $gateway->setSignature('AOzZWG5pxeoglJqkyk1varq28ashAK3bNVPsdv1wuqmidLuACLzKW-yK');
-        $gateway->setTestMode(true);
+        $gateway = Omnipay::create(env('GATEWAY'));
+        $gateway->setUsername(env('GATEWAY_USERNAME'));
+        $gateway->setPassword(env('GATEWAY_PASSWORD'));
+        $gateway->setSignature(env('GATEWAY_SIGNATURE'));
+        $gateway->setTestMode(env('GATEWAY_TESTMODE'));
         $response = $gateway->purchase($params)->send();
 
         if ($response->isSuccessful())

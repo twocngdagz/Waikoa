@@ -86,7 +86,7 @@
 							<label class="col-md-4 control-label">{{ Lang::get('fields.email_notif_offset') }}</label>
 							<div class="col-md-6">								
 								<select name="Course[email_notif_offset]">
-									<option value="-5">5 days before</option>
+									<option value="-5" >5 days before</option>
 									<option value="-4">4 days before</option>
 									<option value="-3">3 days before</option>
 									<option value="-2">2 days before</option>

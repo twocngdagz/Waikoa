@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Course;
+use App\Waikoa\Model\Course;
 
 class CourseTableSeeder extends Seeder {
 
