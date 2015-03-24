@@ -9,6 +9,13 @@
                 <h1><small>{{ $formName }}</small></h1>
             </div>
 			
+			<!-- @TODO: Adrian, move instyle to an external css file -->
+			<div class="btn-group" style="margin-bottom: 1em;" role="group" aria-label="...">				
+				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default'))!!}
+			</div>
+			
 			<form class="form-horizontal" role="form" method="POST" action="{{ $course->exists ? action('CourseController@update') : action('CourseController@create') }}">
 				
 				@if(Session::has('success'))
@@ -21,8 +28,13 @@
 				@endif
 				
 				<!-- Basic Course Information -->
-				<div class="panel panel-yellow">
-					<div class="panel-heading">Basic Course Information</div>             
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						Basic Course Information
+						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">						
+							{!! link_to_action('CourseController@destroy', 'Delete', array('id'=>$course->id), array('class'=>'btn btn-danger btn-xs'))!!}
+						</div>
+					</div>
 					<div class="panel-body">
 						<input type="hidden" name="_token" value="{{ csrf_token() }}">
 						<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
@@ -39,7 +51,7 @@
 				</div>
 				
 				<!-- Course Options -->				
-				<div class="panel panel-yellow">
+				<div class="panel panel-default">
 					<div class="panel-heading">Course Options</div>             
 					<div class="panel-body">						
 						
@@ -114,7 +126,7 @@
 				</div>
 				
 				<!-- Course schedule -->
-				<div class="panel panel-yellow">
+				<div class="panel panel-default">
 					<div class="panel-heading">Course Schedule</div>             
 					<div class="panel-body">						
 						@foreach ($schedule as $value)							
@@ -129,7 +141,7 @@
 				</div>
 				
 				<!-- Course Mail Server -->
-				<div class="panel panel-yellow">
+				<div class="panel panel-default">
 					<div class="panel-heading">Course Mail Server</div>             
 					<div class="panel-body">
 						@foreach ($mailServer as $value)							

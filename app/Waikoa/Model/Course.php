@@ -1,8 +1,17 @@
 <?php namespace App\Waikoa\Model;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Waikoa\Model\BaseModel;
 
 class Course extends BaseModel {
+
+	use SoftDeletes;
+	
+	/**
+	 * Used for soft/pseudo Deleting a user model.
+	 *
+	 * @var string/timestamp
+	 */
+	protected $dates = ['deleted_at'];
 
 	/**
 	 * States which field is NOT safe for mass assignment Input::all().

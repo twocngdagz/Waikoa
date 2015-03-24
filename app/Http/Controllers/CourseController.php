@@ -14,11 +14,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Waikoa\Helpers\Helper;
 
 
-//@TODO: validation, saving data(dropdowns), deletion, view model
+//@TODO: validation, view model
 class CourseController extends Controller
 {
-
-
     /**
      * Constructor Method.
      * @method void middleware auth instantiates role extension
@@ -153,6 +151,15 @@ class CourseController extends Controller
 	 */
 	public function destroy($id)
 	{
-		//
+		// redirect if model not found
+		try {
+			$course = Course::findOrFail($id);		
+		
+		} catch(ModelNotFoundException $e) {
+			return redirect("courses")->withInput()->with('warning', 'Record not found.');
+		}
+		
+		$course->delete();
+		return redirect("courses")->withInput()->with('success', 'Course record deleted.');
 	}
 }

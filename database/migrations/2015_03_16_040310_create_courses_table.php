@@ -53,6 +53,7 @@ class CreateCoursesTable extends Migration {
             $table->foreign('updated_by')->references('id')->on('users');
 			$table->integer('deleted_by')->unsigned()->nullable();
             $table->foreign('deleted_by')->references('id')->on('users');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

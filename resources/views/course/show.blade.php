@@ -11,6 +11,15 @@
 			</div>
 		</div>
 	@endif
+	
+	@if(Session::has('success'))
+		<div class="alert-box success">						
+			<div class="alert alert-success">
+				<strong>Success:</strong> 
+				{{ Session::get('success') }}
+			</div>
+		</div>
+	@endif
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
