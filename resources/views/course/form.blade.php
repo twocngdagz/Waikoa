@@ -41,7 +41,7 @@
 
 						@foreach ($information as $value)						
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{ Lang::get('fields.'.$value) }}</label>
+								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">
 									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
 								</div>
@@ -58,7 +58,7 @@
 						<!-- Class Size -->
 						@foreach ($radio as $value)					
 							<div class="form-group">
-								<label class="col-md-4 control-label radio-inline">{{ Lang::get('fields.'.$value) }}</label>
+								<label class="col-md-4 control-label radio-inline">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-2">								
 									<input type="radio" id="{{ $value.'1' }}" name="Course[{{ $value }}]" value="0" {{ $classSize[$value]['unlimited'] }} >Unlimited<br>
 									<input type="radio" id="{{ $value.'2' }}" name="Course[{{ $value }}]" value="1" {{ $classSize[$value]['limited'] }} >Limit to 
@@ -70,7 +70,7 @@
 						<!-- Comments, Always On -->
 						@foreach ($dropDown as $value)					
 							<div class="form-group">
-								<label class="col-md-4 control-label radio-inline">{{ Lang::get('fields.'.$value) }}</label>
+								<label class="col-md-4 control-label radio-inline">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">								
 									<select name="Course[{{ $value }}]">									
 									<option value="1" {{ $selected[$value]['yes'] }}>Yes</option>
@@ -131,7 +131,7 @@
 					<div class="panel-body">						
 						@foreach ($schedule as $value)							
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{ Lang::get('fields.'.$value) }}</label>
+								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">
 									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
 								</div>
@@ -146,7 +146,7 @@
 					<div class="panel-body">
 						@foreach ($mailServer as $value)							
 							<div class="form-group">
-								<label class="col-md-4 control-label">{{ Lang::get('fields.'.$value) }}</label>
+								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">
 									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
 								</div>

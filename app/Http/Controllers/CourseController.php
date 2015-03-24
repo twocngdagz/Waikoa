@@ -12,6 +12,7 @@ use Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Waikoa\Helpers\Helper;
+use App\Http\Requests\CreateCourseRequest;
 
 
 //@TODO: validation, view model
@@ -60,7 +61,7 @@ class CourseController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CreateCourseRequest $request)
 	{
 		$course = new Course;
 		
