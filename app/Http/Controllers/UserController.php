@@ -51,7 +51,8 @@ class UserController extends Controller {
         if ($user->hasRole('Superadmin')) {
             $roles =  Role::all();
         } else {
-            $roles =  Role::all()->forget(0);
+            $roles =  Role::all();
+            $roles->forget(0);
         }
         return view('user.edit', compact('user', 'roles'));
     }
@@ -60,8 +61,17 @@ class UserController extends Controller {
     public function update() {
         $data = Request::all();
         $user = User::findOrFail($data['user_id']);
+        $newRole = Role::findOrFail($data['role']);
         $user->name = $data['name'];
         $user->email = $data['email'];
+        if ($user->roles) {
+            $oldRole = $user->roles->first();
+            $user->removeRole($oldRole);
+            $user->assignRole($newRole);
+        } else {
+            $user->assignRole($newRole);
+        }
+
         $user->save();
         return redirect('users');
     }

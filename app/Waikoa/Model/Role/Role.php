@@ -1,4 +1,4 @@
-<?php namespace App\Waikoa\Model;
+<?php namespace App\Waikoa\Model\Role;
 
 
 use Illuminate\Database\Eloquent\Model;

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
-use App\Waikoa\Model\Role;
+use App\Waikoa\Model\Role\Role;
 class UserTableSeeder extends Seeder {
 
     public function run()

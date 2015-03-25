@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider {
 			'Illuminate\Contracts\Auth\Registrar',
             'App\Services\WaikoaRegistrar'
 		);
+
+        $this->app->bind('App\Waikoa\Model\Role\RoleRepository','App\Waikoa\Model\Role\EloquentRoleRepository');
 	}
 
 }

@@ -42,6 +42,10 @@ Route::post('role/update',      'RoleController@update');
 Route::get('role/create',       'RoleController@create');
 Route::post('role/save',        'RoleController@save');
 
+// message board
+Route::get('board',             'BoardController@index');
+Route::post('board/comment',    'BoardController@add');
+
 Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',

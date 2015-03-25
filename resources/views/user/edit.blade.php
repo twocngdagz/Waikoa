@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Role</label>
                             <div class="col-md-6">
-                                {!! Form::select('role', $roles->lists('name', 'id'), $user->roles->first()->id, array('class'=>'form-control')) !!}
+                                {!! Form::select('role', $roles->lists('name', 'id'), $user->roles ? $user->roles->first()->id : null, array('class'=>'form-control')) !!}
                             </div>
                         </div>
 

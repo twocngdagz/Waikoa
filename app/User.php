@@ -66,7 +66,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      */
     public function roles()
     {
-        return $this->belongsToMany('App\Waikoa\Model\Role')->withTimestamps();
+        return $this->belongsToMany('App\Waikoa\Model\Role\Role')->withTimestamps();
+    }
+
+    public function comments()
+    {
+        return $this->hasMany('App\Waikoa\Model\MessageBoard\Comment');
     }
 
 

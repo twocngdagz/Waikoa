@@ -188,31 +188,33 @@
 @endsection
 
 @section('scripts')
-	$(document).ready(function(){
-		var format = 'yy-mm-dd';
-		var id = [
-			"class_start", "class_end", "access_start", 
-			"access_end", "register_start", "register_end",
-			"course_material_schedule"
-		];
-		
-		// iterate elements with datepicker
-		id.forEach(function(entry) {
-			$("#" + entry + "").datepicker({
-				dateFormat: format,
-			});
-		});
-		
-		// hide show limit textbox
-		var classSize = ['a', 'b', 'c'];
-		classSize.forEach(function(entry) {
-			$('#class_size_' + entry + '1').click(function(){
-				$('#class_size_' + entry + '_limit').addClass('hidden');
-			});
-			$('#class_size_' + entry + '2').click(function(){
-				$('#class_size_' + entry + '_limit').removeClass('hidden');
-			});			
-		});
-		
-	});
+    <script>
+        $(document).ready(function(){
+            var format = 'yy-mm-dd';
+            var id = [
+                "class_start", "class_end", "access_start",
+                "access_end", "register_start", "register_end",
+                "course_material_schedule"
+            ];
+
+            // iterate elements with datepicker
+            id.forEach(function(entry) {
+                $("#" + entry + "").datepicker({
+                    dateFormat: format,
+                });
+            });
+
+            // hide show limit textbox
+            var classSize = ['a', 'b', 'c'];
+            classSize.forEach(function(entry) {
+                $('#class_size_' + entry + '1').click(function(){
+                    $('#class_size_' + entry + '_limit').addClass('hidden');
+                });
+                $('#class_size_' + entry + '2').click(function(){
+                    $('#class_size_' + entry + '_limit').removeClass('hidden');
+                });
+            });
+
+        });
+    </script>
 @endsection
