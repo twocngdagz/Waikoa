@@ -1,9 +1,10 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Lang;
 
-class CreateCourseRequest extends Request {
+class CreateCourseRequest extends FormRequest  {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -11,7 +12,7 @@ class CreateCourseRequest extends Request {
 	 * @return bool
 	 */
 	public function authorize()
-	{
+	{		
 		return true;
 	}
 
@@ -23,39 +24,39 @@ class CreateCourseRequest extends Request {
 	public function rules()
 	{
 		return [
-            'name' => 'required|alpha',
-			'student_name' => 'alpha_num',
-			'student_name_pl' => 'alpha_num',
-			'instructor_name' => 'alpha',
-			'materials_name' => 'alpha_num',
-			'materials_name_pl' => 'alpha_num',
-			'events_name' => 'alpha_num',
-			'events_name_pl' => 'alpha_num',
-			'webinars_name' => 'alpha_num',
-			'webinars_name_pl' => 'alpha_num',
-			'home_name' => 'required|alpha', 		
-			'download_link' => 'active_url',
-			'class_start' => 'date',
-			'class_end' => 'date',
-			'access_start' => 'date',
-			'access_end' => 'date',
-			'register_start' => 'date',
-			'register_end' => 'date',
-			'class_size_a' => 'integer',
-			'class_size_b' => 'integer',
-			'class_size_c' => 'integer',
+            'name' 					=> 'required|alpha',
+			'student_name' 			=> 'alpha_num',
+			'student_name_pl' 		=> 'alpha_num',
+			'instructor_name' 		=> 'alpha',
+			'materials_name'		=> 'alpha_num',
+			'materials_name_pl' 	=> 'alpha_num',
+			'events_name' 			=> 'alpha_num',
+			'events_name_pl' 		=> 'alpha_num',
+			'webinars_name' 		=> 'alpha_num',
+			'webinars_name_pl' 		=> 'alpha_num',
+			'home_name' 			=> 'required|alpha', 		
+			'download_link' 		=> 'active_url',
+			'class_start'			=> 'date',
+			'class_end' 			=> 'date',
+			'access_start' 			=> 'date',
+			'access_end' 			=> 'date',
+			'register_start' 		=> 'date',
+			'register_end'			=> 'date',
+			'class_size_a' 			=> 'integer',
+			'class_size_b' 			=> 'integer',
+			'class_size_c' 			=> 'integer',
 			'course_material_schedule' => 'integer',
-			'comments_allowed' => 'boolean',
-			'always_on_pre' => 'boolean',
-			'always_on_post' => 'boolean',
-			'date_visible_offset' => 'integer',
-			'email_notif_offset' => 'integer',
-			'smtp_email' => 'email',
-			'smtp_name' => 'alpha_dash',
-			'smtp_server' => 'ip',
-			'smtp_user' => 'alpha_dash',
-			'smtp_password' => 'alpha_dash',
-			'user_id'=>'required|integer'
+			'comments_allowed' 		=> 'boolean',
+			'always_on_pre' 		=> 'boolean',
+			'always_on_post' 		=> 'boolean',
+			'date_visible_offset' 	=> 'integer',
+			'email_notif_offset' 	=> 'integer',
+			'smtp_email' 			=> 'email',
+			'smtp_name' 			=> 'alpha_dash',
+			'smtp_server' 			=> 'ip',
+			'smtp_user' 			=> 'alpha_dash',
+			'smtp_password' 		=> 'alpha_dash',
+			'user_id' 				=> 'required|integer'
         ];
 	}
 
@@ -99,7 +100,11 @@ class CreateCourseRequest extends Request {
 			'user_id.required'=> Lang::get('course.error_user_id_required'),
 			'user_id.integer'=> Lang::get('course.error_user_id_integer'),
         ];
-
+    }
+	
+	public function forbiddenResponse()
+    {
+        return Response::make('Unauthorized Access!',403);
     }
 
 }

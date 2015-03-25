@@ -15,7 +15,7 @@ use App\Waikoa\Helpers\Helper;
 use App\Http\Requests\CreateCourseRequest;
 
 
-//@TODO: validation, view model
+//@TODO: validation(some rules not working)
 class CourseController extends Controller
 {
     /**
@@ -61,7 +61,7 @@ class CourseController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function store(CreateCourseRequest $request)
+	public function store(CreateCourseRequest $request)	
 	{
 		$course = new Course;
 		
@@ -71,8 +71,9 @@ class CourseController extends Controller
 		// save model
 		$data=Request::get('Course');
 		$data['user_id'] = Auth::user()->id;
+		
 		$course = $course::create($data);		
-		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');		
+		return redirect("course/page/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');		
 	}
 
 	/**
@@ -81,7 +82,7 @@ class CourseController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function page($id)
 	{	
 		// redirect if model not found
 		try {
@@ -93,7 +94,7 @@ class CourseController extends Controller
 		
 		$params = $course->labels($course);
 		$params['course'] = $course;
-		return view('course.view',$params);
+		return view('course.page',$params);
 	}
 
 	/**
@@ -119,7 +120,7 @@ class CourseController extends Controller
 		$params = $course->labels();
 		$params['classSize'] = $classSize;
 		$params['selected'] = $selected;
-		// dd($params);
+		
         return view('course.form', $params);
     }
 
@@ -129,7 +130,7 @@ class CourseController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update() 
+	public function update(CreateCourseRequest $request) 
 	{
         $data = Request::get('Course');		
         $course = Course::findOrFail($data['course_id']);
