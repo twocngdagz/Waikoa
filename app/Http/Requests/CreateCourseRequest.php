@@ -1,10 +1,9 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
-use Illuminate\Foundation\Http\FormRequest;
 use Lang;
 
-class CreateCourseRequest extends FormRequest  {
+class CreateCourseRequest extends Request  {
 
 	/**
 	 * Determine if the user is authorized to make this request.
