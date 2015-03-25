@@ -28,7 +28,6 @@ class Course extends BaseModel {
 		'smtp_email', 'smtp_name', 'smtp_server', 'smtp_user', 'smtp_password', 'user_id'
 	];
 
-
     /**
      * Display Class Size Values.
      *

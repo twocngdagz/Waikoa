@@ -17,7 +17,7 @@
 			</div>
 			
 			<form class="form-horizontal" role="form" method="POST" action="{{ $course->exists ? action('CourseController@update') : action('CourseController@create') }}">
-				
+			{!! Form::open(array('action' => 'CourseController@create'), 'POST') !!}
 				@if(Session::has('success'))
 					<div class="alert-box success">						
 						<div class="alert alert-success">
@@ -31,7 +31,7 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						Basic Course Information
-						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">						
+						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">
 							{!! link_to_action('CourseController@destroy', 'Delete', array('id'=>$course->id), array('class'=>'btn btn-danger btn-xs'))!!}
 						</div>
 					</div>
@@ -40,10 +40,11 @@
 						<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
 
 						@foreach ($information as $value)						
-							<div class="form-group">
+							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">
 									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
+									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
 								</div>
 							</div>							
 						@endforeach
@@ -81,44 +82,44 @@
 						@endforeach
 						
 						<div class="form-group">
-							<label class="col-md-4 control-label">{{ Lang::get('fields.date_visible_offset') }}</label>
+							<label class="col-md-4 control-label">{{ Lang::get('course.date_visible_offset') }}</label>
 							<div class="col-md-6">								
 								<select name="Course[date_visible_offset]">
-									<option value="5">5 days before</option>
-									<option value="4">4 days before</option>
-									<option value="3">3 days before</option>
-									<option value="2">2 days before</option>
-									<option value="1">1 days before</option>
-									<option value="0" selected>On the scheduled day</option>
+									<option value="-5" {{ $selected['date_visible_offset']['-5'] }}>5 days before</option>
+									<option value="-4" {{ $selected['date_visible_offset']['-4'] }}>4 days before</option>
+									<option value="-3" {{ $selected['date_visible_offset']['-3'] }}>3 days before</option>
+									<option value="-2" {{ $selected['date_visible_offset']['-2'] }}>2 days before</option>
+									<option value="-1" {{ $selected['date_visible_offset']['-1'] }}>1 days before</option>
+									<option value="0" {{ $selected['date_visible_offset']['0'] }}>On the scheduled day</option>
 								</select>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="col-md-4 control-label">{{ Lang::get('fields.email_notif_offset') }}</label>
+							<label class="col-md-4 control-label">{{ Lang::get('course.email_notif_offset') }}</label>
 							<div class="col-md-6">								
 								<select name="Course[email_notif_offset]">
-									<option value="-5" >5 days before</option>
-									<option value="-4">4 days before</option>
-									<option value="-3">3 days before</option>
-									<option value="-2">2 days before</option>
-									<option value="-1">1 days before</option>
-									<option value="0" selected>Email on the scheduled day</option>
-									<option value="1">1 day after</option>
-									<option value="2">2 days after</option>
-									<option value="3">3 days after</option>
+									<option value="-5" {{ $selected['email_notif_offset']['-5'] }}>5 days before</option>
+									<option value="-4" {{ $selected['email_notif_offset']['-4'] }}>4 days before</option>
+									<option value="-3" {{ $selected['email_notif_offset']['-3'] }}>3 days before</option>
+									<option value="-2" {{ $selected['email_notif_offset']['-2'] }}>2 days before</option>
+									<option value="-1" {{ $selected['email_notif_offset']['-1'] }}>1 days before</option>
+									<option value="0" {{ $selected['email_notif_offset']['0'] }} >Email on the scheduled day</option>
+									<option value="1" {{ $selected['email_notif_offset']['1'] }} >1 day after</option>
+									<option value="2" {{ $selected['email_notif_offset']['2'] }} >2 days after</option>
+									<option value="3" {{ $selected['email_notif_offset']['3'] }} >3 days after</option>
 								</select>
 							</div>
 						</div>
 						
 						<div class="form-group">
-							<label class="col-md-4 control-label">{{ Lang::get('fields.course_material_schedule') }}</label>
+							<label class="col-md-4 control-label">{{ Lang::get('course.course_material_schedule') }}</label>
 							<div class="col-md-6">								
 								<select name="Course[course_material_schedule]">									
-									<option value="1">Daily</option>
-									<option value="2">Weekdays</option>
-									<option value="3">Business Days</option>
-									<option value="4">Others</option>
+									<option value="1" {{ $selected['course_material_schedule']['1'] }}>Daily</option>
+									<option value="2" {{ $selected['course_material_schedule']['2'] }}>Weekdays</option>
+									<option value="3" {{ $selected['course_material_schedule']['3'] }}>Business Days</option>
+									<option value="4" {{ $selected['course_material_schedule']['4'] }}>Others</option>
 								</select>
 							</div>
 						</div>						
@@ -154,7 +155,7 @@
 						@endforeach
 						
 						<div class="form-group">
-							<label class="col-md-4 control-label">{{ Lang::get('fields.smtp_password') }}</label>
+							<label class="col-md-4 control-label">{{ Lang::get('course.smtp_password') }}</label>
 							<div class="col-md-6">
 								<input type="password" id="smtp_password" class="form-control" name="Course[smtp_password]" value="{{ $course->smtp_password }}">
 							</div>
@@ -166,10 +167,10 @@
 									{{ $course->exists ? 'Save' : 'Create' }}
 								</button>
 							</div>
-						</div>				
+						</div>
 					</div>
 				</div>
-			</form>
+			{!! Form::close() !!}
         </div>
     </div>
 @endsection

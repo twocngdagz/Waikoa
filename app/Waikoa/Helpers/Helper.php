@@ -36,16 +36,45 @@ class Helper {
 			'comments_allowed' => ['yes'=>'', 'no'=>''], 
 			'always_on_pre' => ['yes'=>'', 'no'=>''], 
 			'always_on_post' => ['yes'=>'', 'no'=>''], 
+			'date_visible_offset' => [-5=>'', -4=>'', -3=>'', -2=>'', -1=>'', 0=>''], 
+			'email_notif_offset' => [-5=>'', -4=>'', -3=>'', -2=>'', -1=>'', 0=>'', 1=>'', 2=>'', 3=>''], 
+			'course_material_schedule' => [0=>'', 1=>'', 2=>'', 3=>'', 4=>''], 
 		];
 		
 		foreach ($selected as $key => $value) {
-			if ($model->$key == 0) {
-				$selected[$key]['no'] = 'selected';				
-			} else {
-				$classSize[$key]['yes'] = 'selected';				
+			if (!in_array($key, array('date_visible_offset', 'email_notif_offset', 'course_material_schedule'))) {
+				if ($model->$key == 0) {
+					$selected[$key]['no'] = 'selected';				
+				} else {
+					$selected[$key]['yes'] = 'selected';				
+				}
+			}
+		}
+		
+		$selected = Self::selected($model, $selected, 'date_visible_offset');		
+		$selected = Self::selected($model, $selected, 'email_notif_offset');
+		$selected = Self::selected($model, $selected, 'course_material_schedule');
+		
+		return $selected;
+	}
+	
+	/**
+	 * Sets selected values for Course Model Dropdown options
+	 *
+	 * @param  obj  $model course model
+	 * @param  array $selected course model attributes
+	 * @param  array $attribute target course model field dropdown
+	 * @return array $selected html selected option values
+	 */
+	protected static function selected($model, $selected, $attribute)
+	{
+		foreach ($selected[$attribute] as $key => $value) {
+			if ($model->$attribute == $key) {
+				$selected[$attribute][$key] = 'selected';
 			}
 		}
 		
 		return $selected;
+		
 	}
 }

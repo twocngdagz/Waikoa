@@ -45,7 +45,7 @@ class CourseController extends Controller
 	 * @return Response
 	 */
 	public function create()
-	{
+	{		
 		$course = new Course;		
 		$selected = Helper::displayOptions($course);
 		$classSize = $course->classSize();
@@ -72,7 +72,7 @@ class CourseController extends Controller
 		$data=Request::get('Course');
 		$data['user_id'] = Auth::user()->id;
 		$course = $course::create($data);		
-		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');
+		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');		
 	}
 
 	/**
@@ -119,7 +119,7 @@ class CourseController extends Controller
 		$params = $course->labels();
 		$params['classSize'] = $classSize;
 		$params['selected'] = $selected;
-		
+		// dd($params);
         return view('course.form', $params);
     }
 

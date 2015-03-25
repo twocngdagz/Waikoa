@@ -38,12 +38,12 @@ class CreateCoursesTable extends Migration {
 			$table->timestamp('register_end');
 			$table->string('class_size_a')->nullable();
 			$table->string('class_size_b')->nullable();
-			$table->string('class_size_c')->nullable();
-			$table->tinyInteger('course_material_schedule')->unsigned(); // Daily, Weekdays, Business Days, Other hardcoded dropDownBox
+			$table->string('class_size_c')->nullable();			
 			$table->boolean('always_on_pre')->unsigned()->default(0);
 			$table->boolean('always_on_post')->unsigned()->default(1);
-			$table->tinyInteger('date_visible_offset')->unsigned()->default(0);
+			$table->tinyInteger('date_visible_offset')->default(0);
 			$table->tinyInteger('email_notif_offset')->default(0);
+			$table->tinyInteger('course_material_schedule')->unsigned(); // Daily, Weekdays, Business Days, Other hardcoded dropDownBox
 			$table->string('smtp_email');
 			$table->string('smtp_name');
 			$table->string('smtp_server');
