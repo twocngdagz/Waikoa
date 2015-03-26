@@ -7,6 +7,7 @@
 	<title>Laravel</title>
 
 	<link href="/css/app.css" rel="stylesheet">
+	<link href="/css/waikoa.css" rel="stylesheet">
     @yield('comment_css')
 	
 	<!-- Jquery Ui -->

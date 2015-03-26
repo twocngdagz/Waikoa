@@ -12,7 +12,7 @@ use App\Waikoa\Helpers\Helper;
 use App\Http\Requests\CreateCourseRequest;
 
 
-//@TODO: validation(some rules not working)
+//@TODO: deleted_by and updated_by
 class CourseController extends Controller
 {
     /**

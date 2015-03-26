@@ -48,6 +48,7 @@
                                     <td>{{ $course->access_start }}</td>
                                     <td>{{ $course->register_start }}</td>
                                     <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > Edit </a></td>
+                                    <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > View </a></td>
                                 </tr>
                             @endforeach
                         </tbody>
