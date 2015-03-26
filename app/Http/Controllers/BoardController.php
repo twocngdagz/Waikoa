@@ -10,6 +10,7 @@ class BoardController extends Controller
 
     public function index()
     {
+        Request::url();
         $comments = Comment::all();
         return view('comments.message_board', compact('comments'));
     }

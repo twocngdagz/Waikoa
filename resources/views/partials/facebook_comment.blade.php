@@ -1,0 +1,1 @@
+<div class="fb-comments" data-href="{{$href}}" data-numposts="{{$numposts}}" data-colorscheme="{{$colorscheme}}" data-width="{{$width}}"></div>
