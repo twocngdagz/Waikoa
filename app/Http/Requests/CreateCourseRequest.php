@@ -1,6 +1,7 @@
 <?php namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Auth;
 use Lang;
 
 class CreateCourseRequest extends Request  {
@@ -11,8 +12,9 @@ class CreateCourseRequest extends Request  {
 	 * @return bool
 	 */
 	public function authorize()
-	{		
-		return true;
+	{	
+		if (!empty(Auth::user()->id))
+			return true;
 	}
 
 	/**
@@ -23,17 +25,17 @@ class CreateCourseRequest extends Request  {
 	public function rules()
 	{
 		return [
-            'name' 					=> 'required|alpha',
-			'student_name' 			=> 'alpha_num',
-			'student_name_pl' 		=> 'alpha_num',
-			'instructor_name' 		=> 'alpha',
-			'materials_name'		=> 'alpha_num',
-			'materials_name_pl' 	=> 'alpha_num',
-			'events_name' 			=> 'alpha_num',
-			'events_name_pl' 		=> 'alpha_num',
-			'webinars_name' 		=> 'alpha_num',
-			'webinars_name_pl' 		=> 'alpha_num',
-			'home_name' 			=> 'required|alpha', 		
+            'name' 					=> 'required|regex:/^[A-Za-z0-9\- ]+$/',
+			'student_name' 			=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'student_name_pl' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'instructor_name' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'materials_name'		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'materials_name_pl' 	=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'events_name' 			=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'events_name_pl' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'webinars_name' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'webinars_name_pl' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+			'home_name' 			=> 'required|regex:/^[A-Za-z0-9\- ]+$/', 		
 			'download_link' 		=> 'active_url',
 			'class_start'			=> 'date',
 			'class_end' 			=> 'date',
@@ -55,7 +57,7 @@ class CreateCourseRequest extends Request  {
 			'smtp_server' 			=> 'ip',
 			'smtp_user' 			=> 'alpha_dash',
 			'smtp_password' 		=> 'alpha_dash',
-			'user_id' 				=> 'required|integer'
+			'user_id' 				=> 'integer'
         ];
 	}
 

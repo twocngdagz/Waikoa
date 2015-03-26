@@ -12,7 +12,7 @@ class Helper {
      */
 
     public static function setClassSize($data)
-    {
+    {		
         $className = ['class_size_a', 'class_size_b', 'class_size_c'];
 
         foreach($className as $value) {
