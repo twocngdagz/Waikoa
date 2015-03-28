@@ -24,11 +24,11 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="page-header">
-                <h1><small>Course List</small></h1>
+                <h1><small>Lesson List</small></h1>
             </div>
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
 				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}				
-				{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('LessonController@create', 'New Lesson', array(), array('class'=>'btn btn-default'))!!}
 			</div>
 		</div>
 	</div>
@@ -36,31 +36,28 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-yellow">
-                <div class="panel-heading">User List</div>
+                <div class="panel-heading">Lesson List</div>
 
                 <div class="panel-body">
 
                     <table class="table">
                         <thead>
-                            <tr>
-                                <th>Course Name</th>
-                                <th>Instructor</th>
-                                <th>Class Start</th>
-                                <th>Access Date</th>
-                                <th>Registration Date</th>
-                                <th></th>
+                            <tr>                                
+                                <th>Title</th>
+                                <th>Type</th>
+                                <th>Lesson Date</th>
+                                <th>Start Time</th>                                
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($courses as $course)
-                                <tr>
-                                    <td>{{ $course->name }}</td>
-                                    <td>{{ $course->instructor_name }}</td>
-                                    <td>{{ $course->class_start }}</td>
-                                    <td>{{ $course->access_start }}</td>
-                                    <td>{{ $course->register_start }}</td>
-                                    <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > Edit </a></td>
-                                    <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > View </a></td>
+                            @foreach ($lessons as $lesson)
+                                <tr>                                    
+                                    <td>{{ $lesson->title }}</td>
+                                    <td>{{ $lesson->type }}</td>
+                                    <td>{{ $lesson->date }}</td>
+                                    <td>{{ $lesson->start_time }}</td>
+                                    <td><a href="{{action('LessonController@edit', array('id'=>$lesson->id))}}" > Edit </a></td>
+                                    <td><a href="{{action('LessonController@page', array('id'=>$lesson->id))}}" > View </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -24,6 +24,16 @@ Route::get('course/view/{id}',  'CourseController@show')->where('id','\d+');
 Route::get('course/destroy/{id}',  'CourseController@destroy')->where('id','\d+');
 Route::get('course/page/{id}',  'CourseController@page')->where('id','\d+');
 
+// lesson routes
+Route::get('lessons',           'LessonController@index');
+Route::get('lesson/create',     'LessonController@create');
+Route::post('lesson/create',    'LessonController@store');
+Route::get('lesson/edit/{id}',  'LessonController@edit')->where('id','\d+');
+Route::post('lesson/edit/', 	'LessonController@update');
+Route::get('lesson/view/{id}',  'LessonController@show')->where('id','\d+');
+Route::get('lesson/destroy/{id}',  'LessonController@destroy')->where('id','\d+');
+Route::get('lesson/page/{id}',  'LessonController@page')->where('id','\d+');
+
 // user routes
 Route::get('users',             'UserController@index');
 Route::get('user/edit/{id}',    'UserController@edit')->where('id','\d+');

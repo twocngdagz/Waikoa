@@ -59,6 +59,25 @@ class Helper {
 	}
 	
 	/**
+	 * Display Option Values.
+	 *
+	 * @param  obj  $model course model
+	 * @return array $selected html attribute values
+	 */
+	public static function lessonDisplayOptions($model) 
+	{		
+		$selected = [
+			'type' => [0=>'', 1=>''], 
+			'comments_allowed' => [0=>'', 1=>'']	
+		];
+		
+		$selected = Self::selected($model, $selected, 'type');		
+		$selected = Self::selected($model, $selected, 'comments_allowed');		
+		
+		return $selected;
+	}
+	
+	/**
 	 * Sets selected values for Course Model Dropdown options
 	 *
 	 * @param  obj  $model course model

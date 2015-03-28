@@ -23,9 +23,11 @@
 			@endif
 
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
-				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}
-				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default'))!!}
-				{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default')) !!}
+				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default')) !!}
+				@if($course->exists)
+					{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default')) !!}
+				@endif				
 			</div>
 
 			<!-- Form -->
