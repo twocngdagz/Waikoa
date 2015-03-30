@@ -4,6 +4,7 @@ use App\Http\Requests\Request;
 use Auth;
 use Lang;
 
+//@TODO:Adrian validation for time
 class CreateLessonRequest extends Request {
 
 	/**
@@ -25,14 +26,13 @@ class CreateLessonRequest extends Request {
 	public function rules()
 	{
 		return [
-            'title' 			=> 'required|regex:/^[A-Za-z0-9\- ]+$/',
-			'description' 		=> 'regex:/^[A-Za-z0-9\- ]+$/',
+            'title' 			=> 'required|regex:/^[A-Za-z0-9\- ]+$/',			
 			'type' 				=> 'integer',
 			'date' 				=> 'date',
-			'url'				=> 'active_url',
-			'download_url' 		=> 'active_url',
-			'start_time' 		=> 'date',
-			'end_time' 			=> 'date',
+			'url'				=> 'url',
+			'download_url' 		=> 'url',
+			// 'start_time' 		=> 'regex:/((?:(?:[0-1][0-9])|(?:[2][0-3])|(?:[0-9])):(?:[0-5][0-9])(?::[0-5][0-9])?(?:\\s?(?:am|AM|pm|PM))?)/',
+			// 'end_time' 			=> '',
 			'date_visible' 		=> 'date',
 			'email_on' 			=> 'date',
 			'comments_allowed' 	=> 'integer', 					
@@ -44,17 +44,17 @@ class CreateLessonRequest extends Request {
     {
         return [
             'title.required' => Lang::get('lesson.error_title_required'),            						
-			'type.integer' => Lang::get('lesson.error_instructor_name_alpha'),
-			'date.date' => Lang::get('lesson.error_materials_name_alpha_num'),
-			'url.active_url' => Lang::get('lesson.error_materials_name_pl_alpha_num'),
-			'download_url.active_url' => Lang::get('lesson.error_events_name_alpha_num'),
-			'start_time.date' => Lang::get('lesson.error_name_events_name_pl_alpha_num'),
-			'end_time.date' => Lang::get('lesson.error_webinars_name_alpha_num'),
-			'date_visible.date' => Lang::get('lesson.error_webinars_name_pl_alpha_num'),
-			'email_on.date' => Lang::get('lesson.error_home_name_required'),
-			'comments_allowed.integer' => Lang::get('lesson.error_home_name_required'),
-			'course_id.required'=> Lang::get('lesson.error_user_id_required'),
-			'course_id.integer'=> Lang::get('lesson.error_user_id_integer'),
+			'type.integer' => Lang::get('lesson.error_type_integer'),
+			'date.date' => Lang::get('lesson.error_date_date'),
+			'url.url' => Lang::get('lesson.error_url_url'),
+			'download_url.url' => Lang::get('lesson.error_download_url_url'),
+			'start_time.date' => Lang::get('lesson.error_start_time_date'),
+			'end_time.date' => Lang::get('lesson.error_end_time_date'),
+			'date_visible.date' => Lang::get('lesson.error_date_visible_date'),
+			'email_on.date' => Lang::get('lesson.error_email_on_date'),
+			'comments_allowed.integer' => Lang::get('lesson.error_comments_allowed_integer'),
+			'course_id.required'=> Lang::get('lesson.error_course_id_required'),
+			'course_id.integer'=> Lang::get('lesson.error_course_id_integer'),
         ];
     }
 	

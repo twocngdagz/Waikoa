@@ -40,7 +40,8 @@ class Lesson extends BaseModel {
             'lesson' => $this,
             'formName' => $this->exists ? 'Update Lesson' : 'Create Lesson',            
             'information' => ['title', 'url', 'download_url'],
-			'textArea' => [ 'description', 'content', 'before_message', 'during_message', 'after_message'],
+			'content' => ['description', 'content'],
+			'textArea' => ['before_message', 'during_message', 'after_message'],
             'dropDown' => ['type', 'comments_allowed'],
             'schedule' => ['date', 'start_time', 'end_time', 'date_visible', 'email_on']         
         ];

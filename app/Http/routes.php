@@ -26,8 +26,9 @@ Route::get('course/page/{id}',  'CourseController@page')->where('id','\d+');
 
 // lesson routes
 Route::get('lessons',           'LessonController@index');
-Route::get('lesson/create',     'LessonController@create');
-Route::post('lesson/create',    'LessonController@store');
+Route::get('lesson/create/{id}',     'LessonController@create')->where('id','\d+');
+Route::post('lesson/create/{id}',    'LessonController@store')->where('id','\d+');
+
 Route::get('lesson/edit/{id}',  'LessonController@edit')->where('id','\d+');
 Route::post('lesson/edit/', 	'LessonController@update');
 Route::get('lesson/view/{id}',  'LessonController@show')->where('id','\d+');

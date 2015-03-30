@@ -64,7 +64,7 @@ class LessonController extends Controller
 		
 		// save model
 		$data=Request::All();
-		$data['user_id'] = Auth::user()->id;		
+		$data['course_id'] = Request::get('id');		
 		
 		$lesson = $lesson::create($data);		
 		return redirect("lesson/page/{$lesson->id}")->with('success', 'You have successfully created a lesson.');		
@@ -107,11 +107,9 @@ class LessonController extends Controller
 			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
 		}
 		
-		$selected = Helper::displayOptions($lesson);        
-		$classSize = $lesson->classSize();		
+		$selected = Helper::LessonDisplayOptions($lesson);
+		$params['selected'] = $selected;      
 		$params = $lesson->labels();
-		$params['classSize'] = $classSize;
-		$params['selected'] = $selected;
 		
         return view('lesson.form', $params);
     }

@@ -48,9 +48,27 @@
 						
 						@foreach ($information as $value)								
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
-								{!! Form::label($value, Lang::get('course.'.$value), array('class' => 'col-md-4 control-label')) !!}
+								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-4 control-label')) !!}
 								<div class="col-md-6">
 									{!! Form::text($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control')) !!}
+									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
+								</div>
+							</div>							
+						@endforeach
+					</div>
+				</div>
+				
+				<!-- Lesson Messages -->
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						Lesson Content						
+					</div>
+					<div class="panel-body">											
+						@foreach ($content as $value)								
+							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
+								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-4 control-label')) !!}
+								<div class="col-md-6">
+									{!! Form::textArea($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control')) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
 								</div>
 							</div>							
@@ -66,7 +84,7 @@
 					<div class="panel-body">											
 						@foreach ($textArea as $value)								
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
-								{!! Form::label($value, Lang::get('course.'.$value), array('class' => 'col-md-4 control-label')) !!}
+								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-4 control-label')) !!}
 								<div class="col-md-6">
 									{!! Form::textArea($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control')) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
@@ -81,14 +99,20 @@
 					<div class="panel-heading">Lesson Options</div>             
 					<div class="panel-body">					
 						
-						<!-- Comments, Always On -->
+						<!-- Lesson Type, Comments -->
 						@foreach ($dropDown as $value)					
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-								<label class="col-md-4 control-label radio-inline">{{ Lang::get('course.'.$value) }}</label>
+								<label class="col-md-4 control-label radio-inline">{{ Lang::get('lesson.'.$value) }}</label>
 								<div class="col-md-6">								
-									<select name="{{ $value }}">									
-										<option value="1" {{ $selected[$value]['1'] }}>Yes</option>
-										<option value="0" {{ $selected[$value]['0'] }}>No</option>
+									<select name="{{ $value }}">
+										@if($value == 'type')
+											<option value="1" {{ $selected[$value]['1'] }}>Lesson</option>
+											<option value="0" {{ $selected[$value]['2'] }}>Webinar</option>
+											<option value="0" {{ $selected[$value]['3'] }}>Event</option>
+										@else
+											<option value="1" {{ $selected[$value]['1'] }}>Yes</option>
+											<option value="0" {{ $selected[$value]['0'] }}>No</option>											
+										@endif
 									</select>
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
 								</div>
@@ -103,7 +127,7 @@
 					<div class="panel-body">						
 						@foreach ($schedule as $value)							
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
+								<label class="col-md-4 control-label">{{ Lang::get('lesson.'.$value) }}</label>
 								<div class="col-md-6">									
 									{!! Form::text($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control', 'name'=>$value )) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
@@ -128,7 +152,28 @@
 @section('scripts')
     <script>
         $(document).ready(function(){
-            
+            var format = 'yy-mm-dd';
+            var dateSchedule = [
+                "date", "date_visible", "email_on"
+            ];
+
+            // iterate elements with datepicker
+            dateSchedule.forEach(function(entry) {
+                $("#" + entry + "").datepicker({
+                    dateFormat: format,
+                });
+            });
+			
+			var timeSchedule = [
+                "start_time", "end_time"
+            ];
+
+            // iterate elements with datepicker
+            timeSchedule.forEach(function(entry) {
+                $("#" + entry + "").timepicker({
+                    timeFormat: 'h:mm:ss p',
+                });
+            });
         });
     </script>
 @endsection

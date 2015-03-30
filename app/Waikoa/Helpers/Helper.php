@@ -67,7 +67,7 @@ class Helper {
 	public static function lessonDisplayOptions($model) 
 	{		
 		$selected = [
-			'type' => [0=>'', 1=>''], 
+			'type' => [1=>'', 2=>'', 3=>''], 
 			'comments_allowed' => [0=>'', 1=>'']	
 		];
 		
