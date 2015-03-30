@@ -22,10 +22,19 @@ class Lesson extends BaseModel {
 	/**
 	 * States which field is safe for mass assignment Input::all().
 	 */	
-	protected $fillable = ['title', 'description', 'type', 'date', 'url', 'download_url', 'start_time',
+	protected $fillable = ['title', 'description', 'content', 'type', 'date', 'url', 'download_url', 'start_time',
 		'end_time', 'date_visible', 'email_on', 'comments_allowed', 'before_message', 'during_message', 
 		'after_message', 'course_id'
 	];
+	
+	/**
+	 * Defines Relationship: Lesson Belongs to Course
+	 * uses foreign key course_id
+	 */	
+	public function course()
+    {
+        return $this->belongsTo('App\Waikoa\Model\Course');
+    }
 
     /**
      * Set Column Labels.
@@ -33,7 +42,6 @@ class Lesson extends BaseModel {
      * @param  obj  $course course model
      * @return array $labels label values
      */
-
     public function labels()
     {
         $params = [

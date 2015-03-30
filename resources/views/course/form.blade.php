@@ -7,6 +7,7 @@
 		
 			<div class="page-header">
                 <h1><small>{{ $formName }}</small></h1>
+				{!! Breadcrumbs::render() !!}
             </div>
 			
 			@foreach($errors->all() as $error)
@@ -27,6 +28,7 @@
 				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default')) !!}
 				@if($course->exists)
 					{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default')) !!}
+					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
 				@endif				
 			</div>
 

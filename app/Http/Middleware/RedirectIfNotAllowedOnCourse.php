@@ -19,7 +19,7 @@ class RedirectIfNotAllowedOnCourse {
 	public function handle($request, Closure $next)
 	{
 		// redirect if current user does not own course resource
-		$params = $request->route()->parameters();
+		$params = $request->route()->parameters();		
 		if (!empty($params['id'])) {
 			try {
 				$course = Course::findOrFail($params['id']);				

@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Waikoa\Model\Lesson;
+use App\Waikoa\Model\Course;
 // use App\Schema;
 use App\Http\Requests;
 use Request;
@@ -9,7 +10,10 @@ use Route;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Waikoa\Helpers\Helper;
+use App\Waikoa\Observers\LessonObserver;
 use App\Http\Requests\CreateLessonRequest;
+
+Lesson::observe(new LessonObserver);
 
 class LessonController extends Controller 
 {
@@ -40,12 +44,21 @@ class LessonController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function create()
-	{		
+	public function create($id)
+	{
+		// redirect if model not found
+		try {
+			$course = Course::findOrFail($id);			
+		
+		} catch(ModelNotFoundException $e) {
+			return redirect("lessons")->with('warning', 'Record not found.');
+		}
+		
 		$lesson = new Lesson;
 		$params = $lesson->labels();
 		$selected = Helper::LessonDisplayOptions($lesson);
-		$params['selected'] = $selected;
+		$params['selected'] = $selected;		
+		$params['course'] = $course;
 		
 		return view('lesson.form', $params); 
 	}
@@ -56,18 +69,15 @@ class LessonController extends Controller
 	 * @return Response
 	 */
 	public function store(CreateLessonRequest $request)	
-	{
-		$lesson = new Lesson;
-		
-		//set class size values
-		$data = Helper::setClassSize(Request::All());
+	{		
+		$lesson = new Lesson;		
 		
 		// save model
 		$data=Request::All();
-		$data['course_id'] = Request::get('id');		
+		$data['course_id'] = Request::get('course_id');		
 		
 		$lesson = $lesson::create($data);		
-		return redirect("lesson/page/{$lesson->id}")->with('success', 'You have successfully created a lesson.');		
+		return redirect()->route('lessonPage', ['id' => $data['course_id'], 'les' => $lesson->id])->with('success', 'You have successfully created a lesson.');
 	}
 
 	/**
@@ -76,11 +86,11 @@ class LessonController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function page($id)
+	public function page()
 	{	
 		// redirect if model not found
 		try {
-			$lesson = Lesson::findOrFail($id);			
+			$lesson = Lesson::findOrFail(Request::get('les'));
 		
 		} catch(ModelNotFoundException $e) {
 			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
@@ -101,15 +111,18 @@ class LessonController extends Controller
     {
 		// redirect if model not found
 		try {
-			$lesson = Lesson::findOrFail($id);		
+			$lesson = Lesson::findOrFail(Request::get('les'));		
+			$course = Course::findOrFail($id);		
 		
 		} catch(ModelNotFoundException $e) {
 			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
 		}
 		
-		$selected = Helper::LessonDisplayOptions($lesson);
-		$params['selected'] = $selected;      
 		$params = $lesson->labels();
+		$lesson = Helper::formatLessonDate($lesson);
+		$selected = Helper::LessonDisplayOptions($lesson);		
+		$params['selected'] = $selected;	
+		$params['course'] = $course;
 		
         return view('lesson.form', $params);
     }
@@ -122,17 +135,14 @@ class LessonController extends Controller
 	 */
 	public function update(CreateLessonRequest $request) 
 	{
-        $data = Request::All();				
-        $lesson = Lesson::findOrFail($data['lesson_id']);
-		
-		//set class size values
-		$data = Helper::setClassSize(Request::All());
+        $data = Request::All();		
+        $lesson = Lesson::findOrFail($data['lesson_id']);		
 		
 		// save model		
 		$lesson->fill($data);
 		$lesson->save($data);
 		
-		return redirect("lesson/edit/{$lesson->id}")->with('success', 'successfully updated!');
+		return redirect()->route('lessonEdit', ['id' => $data['course_id'], 'les' => $lesson->id])->with('success', 'successfully updated!');		
     }
 
 	/**

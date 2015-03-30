@@ -36,7 +36,7 @@ class CreateLessonRequest extends Request {
 			'date_visible' 		=> 'date',
 			'email_on' 			=> 'date',
 			'comments_allowed' 	=> 'integer', 					
-			'course_id' 		=> 'required|integer',
+			'course_id' 		=> 'integer',
         ];
 	}
 	
