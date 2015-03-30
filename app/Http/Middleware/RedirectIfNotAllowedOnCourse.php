@@ -2,9 +2,7 @@
 
 use Closure;
 use Request;
-use Auth;
 use App\Waikoa\Model\Course;
-use Input;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class RedirectIfNotAllowedOnCourse {
@@ -28,10 +26,12 @@ class RedirectIfNotAllowedOnCourse {
 				return redirect("courses")->with('warning', 'Record not found.');
 			}
 			
-			$course = Course::findOrFail($params['id']);
-			if ($course->user_id != Auth::user()->id) {
-				return redirect("courses")->with('warning', 'You have insufficient permissions.');
-			}			
+			if(!$request->user()->isSuperadmin()) {
+				$course = Course::findOrFail($params['id']);
+				if ($course->user_id != $request->user()->id) {
+					return redirect("courses")->with('warning', 'You have insufficient permissions.');
+				}
+			}
 		}
 		
 		return $next($request);

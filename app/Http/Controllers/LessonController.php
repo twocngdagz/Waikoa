@@ -3,7 +3,6 @@
 use App\Waikoa\Model\Lesson;
 use App\Waikoa\Model\Course;
 // use App\Schema;
-use DB;
 use App\Http\Requests;
 use Request;
 use Auth;
@@ -26,6 +25,7 @@ class LessonController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+		$this->middleware('admin');
         $this->middleware('allowedOnCourse');
     }
 
@@ -87,7 +87,8 @@ class LessonController extends Controller
 		$data['course_id'] = Request::get('course_id');		
 		
 		$lesson = $lesson::create($data);		
-		return redirect()->route('lessonPage', ['id' => $data['course_id'], 'les' => $lesson->id])->with('success', 'You have successfully created a lesson.');
+		return redirect()->route('lessonPage', ['id' => $data['course_id'], 'les' => $lesson->id])
+			->with('success', 'You have successfully created a lesson.');
 	}
 
 	/**
@@ -103,7 +104,8 @@ class LessonController extends Controller
 			$lesson = Lesson::findOrFail(Request::get('les'));
 		
 		} catch(ModelNotFoundException $e) {
-			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
+			return redirect("lessons")->withInput()
+				->with('warning', 'Record not found.');
 		}
 		
 		$params = $lesson->labels($lesson);
@@ -125,7 +127,8 @@ class LessonController extends Controller
 			$course = Course::findOrFail($id);		
 		
 		} catch(ModelNotFoundException $e) {
-			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
+			return redirect("lessons")->withInput()
+				->with('warning', 'Record not found.');
 		}
 		
 		$params = $lesson->labels();		
@@ -160,7 +163,8 @@ class LessonController extends Controller
 		$lesson->fill($data);
 		$lesson->save($data);
 		
-		return redirect()->route('lessonEdit', ['id' => $data['course_id'], 'les' => $lesson->id])->with('success', 'successfully updated!');		
+		return redirect()->route('lessonEdit', ['id' => $data['course_id'], 'les' => $lesson->id])
+			->with('success', 'successfully updated!');		
     }
 
 	/**
