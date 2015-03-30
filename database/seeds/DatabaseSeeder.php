@@ -16,7 +16,8 @@ class DatabaseSeeder extends Seeder {
         DB::table('role_user')->truncate();
         $this->call('RoleTableSeeder');
 		$this->call('UserTableSeeder');
-		$this->call('CourseTableSeeder');		
+		$this->call('CourseTableSeeder');
+		$this->call('LessonTableSeeder');
 
 	}
 

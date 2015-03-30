@@ -7,29 +7,33 @@
 		
 			<div class="page-header">
                 <h1><small>{{ $formName }}</small></h1>
+				{!! Breadcrumbs::render() !!}
             </div>
 			
 			@foreach($errors->all() as $error)
-			<p class="alert alert-danger">{{$error}}</p>
+				<p class="alert alert-danger">{{$error}}</p>
 			@endforeach
-
-			<!-- @TODO: Adrian, move instyle to an external css file -->
-			<div class="btn-group pad-bottom" role="group" aria-label="...">				
-				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}
-				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default'))!!}
-				{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default'))!!}
-			</div>
-						
-			{!! Form::open(array('action' => $course->exists ? 'CourseController@update' : 'CourseController@create', 'class'=>'form-horizontal'), 'POST') !!}
-				@if(Session::has('success'))
-					<div class="alert-box success">						
-						<div class="alert alert-success">
-							<strong>{{ $course->exists ? 'Course' : 'Congrats!' }}</strong> 
-							{{ Session::get('success') }}
-						</div>
+			
+			@if(Session::has('success'))
+				<div class="alert-box success">						
+					<div class="alert alert-success">
+						<strong>{{ $course->exists ? 'Course' : 'Congrats!' }}</strong> 
+						{{ Session::get('success') }}
 					</div>
-				@endif
-				
+				</div>
+			@endif
+
+			<div class="btn-group pad-bottom" role="group" aria-label="...">				
+				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default')) !!}
+				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default')) !!}
+				@if($course->exists)
+					{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default')) !!}
+					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
+				@endif				
+			</div>
+
+			<!-- Form -->
+			{!! Form::open(array('action' => $course->exists ? 'CourseController@update' : 'CourseController@create', 'class'=>'form-horizontal'), 'POST') !!}				
 				<!-- Basic Course Information -->
 				<div class="panel panel-yellow">
 					<div class="panel-heading">
@@ -40,16 +44,15 @@
 							@endif
 						</div>
 					</div>
-					<div class="panel-body">
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
-
-						@foreach ($information as $value)						
-							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
+					<div class="panel-body">					
+						{!! Form::hidden('course_id', $course->id) !!}
+						
+						@foreach ($information as $value)								
+							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
+								{!! Form::label($value, Lang::get('course.'.$value), array('class' => 'col-md-4 control-label')) !!}
 								<div class="col-md-6">
-									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
-									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}										
+									{!! Form::text($value, $course->$value, array('id'=>$value, 'class'=>'form-control')) !!}
+									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
 								</div>
 							</div>							
 						@endforeach
@@ -61,14 +64,22 @@
 					<div class="panel-heading">Course Options</div>             
 					<div class="panel-body">						
 						
-						<!-- Class Size -->
+						<!-- Class Size -->						
 						@foreach ($radio as $value)				
-							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-								<label class="col-md-4 control-label radio-inline">{{ Lang::get('course.'.$value) }}</label>
-								<div class="col-md-2">								
-									<input type="radio" id="{{ $value.'1' }}" name="Course[{{ $value }}]" value="0" {{ $classSize[$value]['unlimited'] }} >Unlimited<br>
-									<input type="radio" id="{{ $value.'2' }}" name="Course[{{ $value }}]" value="1" {{ $classSize[$value]['limited'] }} >Limit to 
-									<input type="text" id="{{ $value.'_limit' }}" class="form-control input-sm {{ $classSize[$value]['visibility'] }} " name="Course[{{ $value.'_limit' }}]" value="{{ $course->$value }}" size="10" placeholder="Number">
+							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
+								{!! Form::label($value, Lang::get('course.'.$value), array('class' => 'col-md-4 control-label radio-inline')) !!}
+								<div class="col-md-2">									
+									
+									{!! Form::radio($value, '0', $classSize[$value]['unlimited'], array('id'=>$value.'1')) !!} Unlimited<br />									
+									{!! Form::radio($value, '1', $classSize[$value]['limited'], array('id'=>$value.'2')) !!} Limit to									
+									{!! Form::text($value, $course->$value, array(
+											'id'=>$value.'_limit',
+											'class'=>'form-control input-sm ' . $classSize[$value]['visibility'],
+											'name'=>$value.'_limit',											
+											'size'=>'10',
+											'placeholder'=>'Number'
+										)) 
+									!!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
 								</div>
 							</div>
@@ -79,7 +90,7 @@
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 								<label class="col-md-4 control-label radio-inline">{{ Lang::get('course.'.$value) }}</label>
 								<div class="col-md-6">								
-									<select name="Course[{{ $value }}]">									
+									<select name="{{ $value }}">									
 										<option value="1" {{ $selected[$value]['yes'] }}>Yes</option>
 										<option value="0" {{ $selected[$value]['no'] }}>No</option>
 									</select>
@@ -91,7 +102,7 @@
 						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 							<label class="col-md-4 control-label">{{ Lang::get('course.date_visible_offset') }}</label>
 							<div class="col-md-6">								
-								<select name="Course[date_visible_offset]">
+								<select name="date_visible_offset">
 									<option value="-5" {{ $selected['date_visible_offset']['-5'] }}>5 days before</option>
 									<option value="-4" {{ $selected['date_visible_offset']['-4'] }}>4 days before</option>
 									<option value="-3" {{ $selected['date_visible_offset']['-3'] }}>3 days before</option>
@@ -106,7 +117,7 @@
 						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 							<label class="col-md-4 control-label">{{ Lang::get('course.email_notif_offset') }}</label>
 							<div class="col-md-6">								
-								<select name="Course[email_notif_offset]">
+								<select name="email_notif_offset">
 									<option value="-5" {{ $selected['email_notif_offset']['-5'] }}>5 days before</option>
 									<option value="-4" {{ $selected['email_notif_offset']['-4'] }}>4 days before</option>
 									<option value="-3" {{ $selected['email_notif_offset']['-3'] }}>3 days before</option>
@@ -124,7 +135,7 @@
 						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 							<label class="col-md-4 control-label">{{ Lang::get('course.course_material_schedule') }}</label>
 							<div class="col-md-6">								
-								<select name="Course[course_material_schedule]">									
+								<select name="course_material_schedule">									
 									<option value="1" {{ $selected['course_material_schedule']['1'] }}>Daily</option>
 									<option value="2" {{ $selected['course_material_schedule']['2'] }}>Weekdays</option>
 									<option value="3" {{ $selected['course_material_schedule']['3'] }}>Business Days</option>
@@ -143,8 +154,8 @@
 						@foreach ($schedule as $value)							
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
-								<div class="col-md-6">
-									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
+								<div class="col-md-6">									
+									{!! Form::text($value, $course->$value, array('id'=>$value, 'class'=>'form-control', 'name'=>$value )) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
 								</div>
 							</div>
@@ -156,11 +167,11 @@
 				<div class="panel panel-yellow">
 					<div class="panel-heading">Course Mail Server</div>             
 					<div class="panel-body">
-						@foreach ($mailServer as $value)							
+						@foreach($mailServer as $value)						
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
 								<label class="col-md-4 control-label">{{ Lang::get('course.'.$value) }}</label>
-								<div class="col-md-6">
-									<input type="text" id="{{ $value }}" class="form-control" name="Course[{{ $value }}]" value="{{ $course->$value }}">
+								<div class="col-md-6">									
+									{!! Form::text($value, $course->$value, array('id'=>$value, 'class'=>'form-control', 'name'=>$value )) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}
 								</div>
 							</div>
@@ -169,7 +180,8 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">{{ Lang::get('course.smtp_password') }}</label>
 							<div class="col-md-6">
-								<input type="password" id="smtp_password" class="form-control" name="Course[smtp_password]" value="{{ $course->smtp_password }}">
+								<?php //-- Form element override, issue with Form::password class ?>
+								<input type="password" id="smtp_password" class="form-control" name="smtp_password" value="{{ $course->smtp_password }}">								
 							</div>
 						</div>
 
@@ -214,7 +226,6 @@
                     $('#class_size_' + entry + '_limit').removeClass('hidden');
                 });
             });
-
         });
     </script>
 @endsection

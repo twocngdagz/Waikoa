@@ -20,10 +20,23 @@
 			</div>
 		</div>
 	@endif
+	
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="page-header">
+                <h1><small>Course List</small></h1>
+				{!! Breadcrumbs::render() !!}				
+            </div>
+			<div class="btn-group pad-bottom" role="group" aria-label="...">				
+				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}				
+				{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default'))!!}				
+			</div>
+		</div>
+	</div>
 
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
+            <div class="panel panel-yellow">
                 <div class="panel-heading">User List</div>
 
                 <div class="panel-body">
@@ -48,6 +61,7 @@
                                     <td>{{ $course->access_start }}</td>
                                     <td>{{ $course->register_start }}</td>
                                     <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > Edit </a></td>
+                                    <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > View </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

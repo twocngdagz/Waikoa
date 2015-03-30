@@ -144,7 +144,7 @@ return [
 		'App\Providers\ConfigServiceProvider',
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
-
+		'DaveJamesMiller\Breadcrumbs\ServiceProvider',
         'Collective\Html\HtmlServiceProvider',
 
 	],
@@ -196,6 +196,9 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
         'Form' => 'Collective\Html\FormFacade',
         'Html' => 'Collective\Html\HtmlFacade',
+		
+		// Third Party
+		'Breadcrumbs' => 'DaveJamesMiller\Breadcrumbs\Facade',
 
 	],
 

@@ -12,17 +12,28 @@
 */
 
 Route::get('/',                 'WelcomeController@index');
-Route::get('home',              'HomeController@index');
+Route::get('home', 				['as' => 'home', 'uses' => 'HomeController@index']);
 
 // course routes
-Route::get('courses',           'CourseController@index');
-Route::get('course/create',     'CourseController@create');
-Route::post('course/create',    'CourseController@store');
-Route::get('course/edit/{id}',  'CourseController@edit')->where('id','\d+');
-Route::post('course/edit/', 	'CourseController@update');
-Route::get('course/view/{id}',  'CourseController@show')->where('id','\d+');
-Route::get('course/destroy/{id}',  'CourseController@destroy')->where('id','\d+');
-Route::get('course/page/{id}',  'CourseController@page')->where('id','\d+');
+Route::get('courses',           	['as' => 'courses', 'uses' => 'CourseController@index']);
+Route::get('course/create',     	['as' => 'courseCreate', 'uses' => 'CourseController@create']);
+Route::post('course/create',    	'CourseController@store');
+Route::get('course/edit/{id}',  	['as' => 'courseEdit', 'uses' => 'CourseController@edit'])->where('id','\d+');
+Route::post('course/edit/', 		'CourseController@update');
+Route::get('course/view/{id}',  	'CourseController@show')->where('id','\d+');
+Route::get('course/destroy/{id}',  	'CourseController@destroy')->where('id','\d+');
+Route::get('course/page/{id}',  	'CourseController@page')->where('id','\d+');
+
+// lesson routes
+Route::get('lessons',           	'LessonController@index');
+Route::get('lesson/create/{id}',    ['as' => 'lessonCreate', 'uses' => 'LessonController@create']);
+Route::post('lesson/store',   		['as' => 'lessonStore', 'uses' => 'LessonController@store']);
+
+Route::get('lesson/edit/{id}',  	['as' => 'lessonEdit', 'uses' => 'LessonController@edit'])->where('id','\d+');
+Route::post('lesson/edit/', 		'LessonController@update');
+Route::get('lesson/view/{id}',  	'LessonController@show')->where('id','\d+');
+Route::get('lesson/destroy/{id}',   'LessonController@destroy')->where('id','\d+');
+Route::get('lesson/page/{id}',  	['as' => 'lessonPage', 'uses' => 'LessonController@page'])->where('id','\d+');
 
 // user routes
 Route::get('users',             'UserController@index');

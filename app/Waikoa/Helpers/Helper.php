@@ -1,6 +1,7 @@
 <?php namespace App\Waikoa\Helpers;
 
 use App\Waikoa\Model\Course;
+use Carbon\Carbon;
 
 class Helper {
 
@@ -12,7 +13,7 @@ class Helper {
      */
 
     public static function setClassSize($data)
-    {
+    {		
         $className = ['class_size_a', 'class_size_b', 'class_size_c'];
 
         foreach($className as $value) {
@@ -59,6 +60,51 @@ class Helper {
 	}
 	
 	/**
+	 * Display Option Values.
+	 *
+	 * @param  obj  $model course model
+	 * @return array $selected html attribute values
+	 */
+	public static function lessonDisplayOptions($model) 
+	{		
+		$selected = [
+			'type' => [1=>'', 2=>'', 3=>''], 
+			'comments_allowed' => [0=>'', 1=>'']	
+		];
+		
+		$selected = Self::selected($model, $selected, 'type');
+		$selected = Self::selected($model, $selected, 'comments_allowed');
+		
+		return $selected;
+	}
+	
+	/**
+	 * Display Formats for Lesson date and time
+	 *
+	 * @param  obj  $model lesson model	 
+	 * @return obj $model lesson model with formatted date and time
+	 */
+	public static function formatLessonDate($model) 
+	{
+		$date = Carbon::parse($model->date);
+		$model->date = $date->toDateString();
+		
+		$startTime = Carbon::parse($model->start_time);
+		$model->start_time = $startTime->format('g:i:s A');
+		
+		$endTime = Carbon::parse($model->end_time);
+		$model->end_time = $endTime->format('g:i:s A');
+		
+		$dateVisible = Carbon::parse($model->date_visible);
+		$model->date_visible = $dateVisible->toDateString();
+		
+		$emailOn = Carbon::parse($model->email_on);
+		$model->email_on = $emailOn->toDateString();
+		
+		return $model;
+	}
+	
+	/**
 	 * Sets selected values for Course Model Dropdown options
 	 *
 	 * @param  obj  $model course model
@@ -67,15 +113,14 @@ class Helper {
 	 * @return array $selected html selected option values
 	 */
 	protected static function selected($model, $selected, $attribute)
-	{
-		foreach ($selected[$attribute] as $key => $value) {
+	{		
+		foreach ($selected[$attribute] as $key => $value) {		
 			if ($model->$attribute == $key) {
 				$selected[$attribute][$key] = 'selected';
 			}
-		}
-		
+		}		
 		return $selected;
-		
+
 	}
 
     public static function generateCommentView($comment, $margin=0)

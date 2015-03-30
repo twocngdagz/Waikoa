@@ -1,11 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-// Debugging
-use App\Debug;
-
 use App\Waikoa\Model\Course;
-use App\Schema;
-use App\Http\Requests;
+// use App\Schema;
+// use App\Http\Requests;
 use Request;
 use Auth;
 use Route;
@@ -15,7 +12,7 @@ use App\Waikoa\Helpers\Helper;
 use App\Http\Requests\CreateCourseRequest;
 
 
-//@TODO: validation(some rules not working)
+//@TODO: deleted_by and updated_by, summary, description
 class CourseController extends Controller
 {
     /**
@@ -26,6 +23,7 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('allowedOnCourse');
     }
 
 	/**
@@ -52,7 +50,7 @@ class CourseController extends Controller
 		
 		$params = $course->labels();
 		$params['classSize'] = $classSize;
-		$params['selected'] = $selected;
+		$params['selected'] = $selected;		
 		return view('course.form', $params); 
 	}
 
@@ -66,14 +64,14 @@ class CourseController extends Controller
 		$course = new Course;
 		
 		//set class size values
-		$data = Helper::setClassSize(Request::get('Course'));
+		$data = Helper::setClassSize(Request::All());
 		
 		// save model
-		$data=Request::get('Course');
-		$data['user_id'] = Auth::user()->id;
+		$data=Request::All();
+		$data['user_id'] = Auth::user()->id;		
 		
 		$course = $course::create($data);		
-		return redirect("course/page/{$course->id}")->withInput()->with('success', 'You have successfully created a course.');		
+		return redirect("course/page/{$course->id}")->with('success', 'You have successfully created a course.');		
 	}
 
 	/**
@@ -113,10 +111,8 @@ class CourseController extends Controller
 			return redirect("courses")->withInput()->with('warning', 'Record not found.');
 		}
 		
-		$selected = Helper::displayOptions($course);
-        $course = Course::findOrFail($id);
-		$classSize = $course->classSize();
-		
+		$selected = Helper::displayOptions($course);        
+		$classSize = $course->classSize();		
 		$params = $course->labels();
 		$params['classSize'] = $classSize;
 		$params['selected'] = $selected;
@@ -132,17 +128,17 @@ class CourseController extends Controller
 	 */
 	public function update(CreateCourseRequest $request) 
 	{
-        $data = Request::get('Course');		
+        $data = Request::All();				
         $course = Course::findOrFail($data['course_id']);
 		
 		//set class size values
-		$data = Helper::setClassSize(Request::get('Course'));
+		$data = Helper::setClassSize(Request::All());
 		
 		// save model		
 		$course->fill($data);
 		$course->save($data);
 		
-		return redirect("course/edit/{$course->id}")->withInput()->with('success', 'successfully updated!');
+		return redirect("course/edit/{$course->id}")->with('success', 'successfully updated!');
     }
 
 	/**
