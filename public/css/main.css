@@ -1,4 +1,4 @@
-#emAddComment{
+.emAddComment{
     background-color: #ECEFF5;
     border-bottom: 1px solid #E5EAF1;
     clear: left;
@@ -37,7 +37,7 @@ span.emButton{
     vertical-align: bottom;
 }
 
-#emAddComment textarea{
+.emAddComment textarea{
     width: 100%;
     height: 29px;
     overflow: hidden;
@@ -49,7 +49,7 @@ span.emButton{
     padding: 3px;
 }
 
-#emAddComment #addEmMail, #emAddComment #addEmName{
+.emAddComment .addEmMail, .emAddComment .addEmName{
     margin: 0 10px 5px 0;
     border: 1px solid #BDC7D8;
     font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
@@ -58,7 +58,7 @@ span.emButton{
     width: 200px;
 }
 
-#emAddComment label{
+.emAddComment label{
     width: 75px;
     text-align: right;
 }
@@ -75,6 +75,20 @@ span.emButton{
     color: #333;
 }
 
+.emInfoMessage{
+    background-color: #FFEFF5;
+    border-bottom: 1px solid #E5EAF1;
+    clear: left;
+    float: none;
+    margin-bottom: 2px;
+    overflow: hidden;
+    padding: 5px 0 4px 5px;
+    display: block;
+    color: #333;
+    text-align: center;
+    font-weight: bold;
+}
+
 .emComment .emCommentImage{
     float: left;
 }
@@ -86,11 +100,11 @@ span.emButton{
 
 .emComment .emCommentInto{
     color: #777;
-    padding: 7px 7px 1px;
-    text-align: right;
+    padding: 7px 7px 1px 40px;
+    text-align: left;
 }
 
-.emShowAllComments{
+.emShowAllComments, .emHideAllComments{
     border-bottom: 1px solid #E5EAF1;
     clear: left;
     float: none;
@@ -104,17 +118,17 @@ span.emButton{
     padding-left: 26px;
 }
 
-#emContent{
+#emContent, .emContent{
     font-family: "lucida grande",tahoma,verdana,arial,sans-serif;
     font-size: 11px;
 }
 
-#emContent a{
+#emContent a, .emContent a{
     text-decoration: none;
     color: #3B5998;
 }
 
-#emContent a:hover{
+#emContent a:hover, .emContent a:hover{
     text-decoration: underline;
 }
 
@@ -122,6 +136,11 @@ span.emButton{
     font-weight: bold;
 }
 
-#emAddComment #addEmPot{
+.emAddComment .addEmPot{
     display: none;
+}
+
+.emCommentLike{
+    margin-top: 5px;
+    color: #777;
 }

@@ -75,95 +75,88 @@ function inputPlaceholder (input, color) {
  *  Heart and soul of the application -- it ADDS the comment to the database
  ***/
 function addEMComment(oid){
-    if($('addEmComment').value != $('addEmComment').getAttribute('placeholder')){
+    var myComment = $('#addEmComment_' + oid);
+    if (myComment.val() && myComment.val() != myComment.attr('placeholder')) {
         //mark comment box as inactive
-        $('addEmComment').disabled = true;
-        $('emAddButton').disabled = true;
+        myComment.attr('disabled', 'true');
+        $('#emAddButton_' + oid).attr('disabled', 'true');
 
-        new Ajax.Request('board/comment', {
-              method: 'post',
-              parameters: {
-                  comment: $('addEmComment').value,
-                  object_id:    oid,
-                  _token : $('_token').value
-              },
-
-            onSuccess: function(reply) {
-                var data = reply.responseText.evalJSON(true);
-
-                $('emContent').insert('' +
-                    '<div class="emComment" id="comment_'+data.id+'" style="display: none;">' +
-                    '   <div class="emCommentImage"><img src="img/default.gif" width="32" height="32" alt="Gravatar">' +
-                    '</div>' +
-                    '<div class="emCommentText"><span class="emSenderName">'+ data.user.name +'</span>: '+data.message+'</div>' +
-                    '<div class="emCommentInto">'+data.created_at+'</div></div>');
-                $('comment_'+data.id).appear();
-
-                if($('total_em_comments')){
-                    $('total_em_comments').innerHTML = data.total;
+        $.post(
+            'board/comment', {
+                comment: myComment.val(),
+                object_id:    oid,
+                _token : $('#_token').val(),
+                reply_to: $('#replyToEmPost_'+oid).val()
+            },
+            function (data) {
+                if(data.reply_to){
+                    $('#comment_'+data.reply_to).after(data.html);
+                } else {
+                    $('#emContent_' + oid).append(data.html);
                 }
-                resetFields();
-            }
-        });
+                $('#comment_' + data.id).slideDown();
+                resetFields(oid);
+            }, 'json');
     }else{
-        $('addEmComment').focus();
+        myComment.focus();
     }
 
     return false;
 }
 
 /***
- *  This loads all the comments to the current object id from the database
- ***/
-function loadComments(){
-    if($('emComments') && $('emComments').getAttribute('object')){
-        if(!$('emComments').hasClassName('ignorejsloader')){
-
-            new Ajax.Request('commentanything/ajax/loadComments.php', {
-                  method: 'post',
-                  parameters: {
-                      object_id: $('emComments').getAttribute('object')
-                  },
-
-                onSuccess: function(reply) {
-                    var data = reply.responseText.evalJSON(true);
-
-                    if(data.dberror){
-                        alert("DATABASE ERROR:\n"+data.dberror);
-                        return;
-                    }
-
-                    $('emComments').innerHTML = data.html;
-                    Event.observe('addEmComment', 'keyup', function(){
-                        adjustHeight($('addEmComment'));
-                    });
-                    resetFields();
-                }
-            });
-
-        }else{
-            Event.observe('addEmComment', 'keyup', function(){
-                adjustHeight($('addEmComment'));
-            });
-            resetFields();
-        }
-    }
-}
-
-/***
  *  Clear Add Comment Fields
  ***/
-function resetFields(){
-    $('addEmComment').value = '';
-    $('addEmComment').style.color = '#333';
-    $('addEmComment').disabled = false;
+function resetFields(oid) {
+    var obj = document.getElementById('addEmComment_' + oid);
+    if (obj) {
+        obj.value = '';
+        obj.style.color = '#333';
+        obj.disabled = false;
+        obj.style.height = '29px';
+        inputPlaceholder(document.getElementById('addEmComment_' + oid));
+    }
 
-    $('emAddButton').disabled = false;
-    inputPlaceholder($('addEmComment'));
-    inputPlaceholder($('addEmName'));
-    inputPlaceholder($('addEmMail'));
-    $('addEmComment').style.height = '29px';
+    obj = document.getElementById('emAddButton_' + oid);
+    if (obj) {
+        obj.disabled = false;
+    }
 
+    //put it in the correct place now
+    toggleTexts(oid, true);
+    $('#emAddCommentHeader_'+oid).append($('#emAddComment_'+oid));
+    $('#replyToEmPost_'+oid).val('');
+}
+
+
+
+function replyToThisComment(cid, oid) {
+    toggleTexts(oid);
+    $('#replyToEmPost_'+oid).val(cid);
+
+    //append the form where needed
+    $('#emAddComment_'+oid).appendTo('#comment_'+cid);
+    $('#addEmComment_'+oid).focus();
+}
+
+function toggleTexts(oid, reverse){
+    var commentButton  = $('#emAddButton_'+oid);
+    var commentText    = $('#addEmComment_'+oid);
+
+    //toggle texts
+    if(!commentButton.attr('data-alt-toggled') && !reverse || commentButton.attr('data-alt-toggled') && reverse){
+        tempToggle = commentButton.val();
+        commentButton.val(commentButton.attr('data-alt-value'));
+        commentButton.attr('data-alt-value', tempToggle);
+        commentButton.attr('data-alt-toggled', 1);
+    }
+
+    if(!commentText.attr('data-alt-toggled') && !reverse || commentText.attr('data-alt-toggled') && reverse){
+        tempToggle = commentText.attr('placeholder');
+        commentText.attr('placeholder', commentText.attr('data-alt-value'));
+        commentText.attr('data-alt-value', tempToggle);
+        commentText.attr('data-alt-toggled', 1);
+    }
 }
 
 /***
@@ -177,7 +170,9 @@ function viewAllComments(){
     $('emShowAllComments').hide();
 }
 
-//OnLoad Stuff
-Event.observe(window, 'load', function() {
-    loadComments();
+jQuery(document).ready(function () {
+    //resetFields();
+    $('#addEmComment_message_board').bind('keyup', function(event){
+        adjustHeight(this);
+    });
 });
