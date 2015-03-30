@@ -23,7 +23,7 @@ class Kernel extends ConsoleKernel {
 	protected function schedule(Schedule $schedule)
 	{
 		$schedule->command('inspire')
-				 ->everyFiveMinutes();
+            ->sendOutputTo(storage_path('logs/output.log'));
 	}
 
 }
