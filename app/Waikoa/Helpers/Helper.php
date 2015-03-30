@@ -79,27 +79,18 @@ class Helper {
 	}
 	
 	/**
-	 * Display Formats for Lesson date and time
+	 * Display Formats for date and time
 	 *
-	 * @param  obj  $model lesson model	 
-	 * @return obj $model lesson model with formatted date and time
+	 * @param obj $model model	 
+	 * @param array $params model_attribute => dateFormat function according to Carbon Extension
+	 * @return obj $model model with formatted date and time
 	 */
-	public static function formatLessonDate($model) 
+	public static function formatDate($model, $params, $custom='g:i:s A') 
 	{
-		$date = Carbon::parse($model->date);
-		$model->date = $date->toDateString();
-		
-		$startTime = Carbon::parse($model->start_time);
-		$model->start_time = $startTime->format('g:i:s A');
-		
-		$endTime = Carbon::parse($model->end_time);
-		$model->end_time = $endTime->format('g:i:s A');
-		
-		$dateVisible = Carbon::parse($model->date_visible);
-		$model->date_visible = $dateVisible->toDateString();
-		
-		$emailOn = Carbon::parse($model->email_on);
-		$model->email_on = $emailOn->toDateString();
+		foreach ($params as $attribute => $format) {
+			$result = Carbon::parse($model->$attribute);
+			$model->$attribute = $result->$format($custom);
+		}		
 		
 		return $model;
 	}

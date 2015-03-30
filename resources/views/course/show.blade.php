@@ -23,9 +23,12 @@
 	
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+		
+			<!-- Breadbcrumbs -->
+			{!! Breadcrumbs::render() !!}
+			
 			<div class="page-header">
                 <h1><small>Course List</small></h1>
-				{!! Breadcrumbs::render() !!}				
             </div>
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
 				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}				

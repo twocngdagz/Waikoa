@@ -22,10 +22,10 @@ Route::get('course/edit/{id}',  	['as' => 'courseEdit', 'uses' => 'CourseControl
 Route::post('course/edit/', 		'CourseController@update');
 Route::get('course/view/{id}',  	'CourseController@show')->where('id','\d+');
 Route::get('course/destroy/{id}',  	'CourseController@destroy')->where('id','\d+');
-Route::get('course/page/{id}',  	'CourseController@page')->where('id','\d+');
+Route::get('course/page/{id}',  	['as' => 'coursePage', 'uses' => 'CourseController@page'])->where('id','\d+');
 
 // lesson routes
-Route::get('lessons',           	'LessonController@index');
+Route::get('lessons/{id}',         	['as' => 'lessons', 'uses' => 'LessonController@index']);
 Route::get('lesson/create/{id}',    ['as' => 'lessonCreate', 'uses' => 'LessonController@create']);
 Route::post('lesson/store',   		['as' => 'lessonStore', 'uses' => 'LessonController@store']);
 

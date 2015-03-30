@@ -5,9 +5,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 		
+			<!-- Breadbcrumbs -->
+			{!! Breadcrumbs::render() !!}
+		
 			<div class="page-header">
-                <h1><small>{{ $formName }}</small></h1>
-				{!! Breadcrumbs::render() !!}
+                <h1><small>{{ $formName }}</small></h1>				
             </div>
 			
 			@foreach($errors->all() as $error)
@@ -23,25 +25,27 @@
 				</div>
 			@endif
 
+			<!-- Nav Buttons -->
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
 				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default')) !!}
 				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default')) !!}
 				@if($course->exists)
 					{!! link_to_action('CourseController@create', 'New Course', array(), array('class'=>'btn btn-default')) !!}
+					{!! link_to_action('LessonController@index', 'Lessons', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
 					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
-				@endif				
-			</div>
+				@endif
+			</div>			
 
 			<!-- Form -->
 			{!! Form::open(array('action' => $course->exists ? 'CourseController@update' : 'CourseController@create', 'class'=>'form-horizontal'), 'POST') !!}				
 				<!-- Basic Course Information -->
 				<div class="panel panel-yellow">
 					<div class="panel-heading">
-						Basic Course Information
-						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">
+						Basic Course Information						
+						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">							
 							@if($course->exists)
 								{!! link_to_action('CourseController@destroy', 'Delete', array('id'=>$course->id), array('class'=>'btn btn-danger btn-xs'))!!}
-							@endif
+							@endif							
 						</div>
 					</div>
 					<div class="panel-body">					
@@ -196,6 +200,17 @@
 				</div>
 			{!! Form::close() !!}
         </div>
+		
+		<div class="row">
+			<div class="col-md-3 pull-right">
+				<div style="margin-bottom: 1em;" role="group" aria-label="...">											
+				@if($course->exists)
+					<i>Author:</i>
+					{{ $course->user->name }}
+				@endif
+				</div>
+			</div>
+		</div>
     </div>
 @endsection
 

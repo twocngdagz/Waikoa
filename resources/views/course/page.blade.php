@@ -14,6 +14,10 @@
 	
     <div class="row">
         <div class="col-md-12">		
+		
+			<!-- Breadbcrumbs -->
+			{!! Breadcrumbs::render('coursePage', $course) !!}
+		
 			<div class="page-header">
                 <h1><small>{{ $course->name }}</small></h1>
 				{{ $course->home_name }}
@@ -27,9 +31,9 @@
 	</div>
 	
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<div class="panel panel-default">
-				<div class="panel-heading"> About Us </div>             
+				<div class="panel-heading"> Anything Here, schedule, reminders, etc.. </div>             
 				<div class="panel-body">
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel purus et dolor sodales porttitor eu vel risus. Nullam at velit in urna semper consequat.
 					Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam vel purus et dolor sodales porttitor eu vel risus. Nullam at velit in urna semper consequat.
@@ -38,55 +42,45 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6 pad-bottom">
-			<form class="form-horizontal" role="form" method="POST" action="{{ $course->exists ? action('CourseController@update') : action('CourseController@create') }}">
-				<!-- Course Lessons -->
-				<ul class="nav nav-tabs ">
-					<li role="presentation" class="active"><a href="#">Lessons</a></li>
-					<li role="presentation"><a href="#">Webinars</a></li>
-					<li role="presentation"><a href="#">Live Events</a></li>
-				</ul>
-				<div class="tab-content">
-					<div id="tab_1" class="tab-pane fade">
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-					<div id="tab_2" class="tab-pane fade active in">
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-					<div id="tab_4" class="tab-pane fade">
-						<textarea class="form-control" rows="3"></textarea>
-					</div>
-				</div>				
-			</form>
+		
+		<div class="col-md-3">
+			<ul class="nav nav-pills nav-stacked">
+			<li role="presentation" class="active"><a href="#">Course Home</a></li>
+			<li role="presentation"><a href="#">Fellow Coaches</a></li>
+			<li role="presentation"><a href="#">Discussions</a></li>
+			<li role="presentation"><a href="#">My Profile</a></li>
+			</ul>
 		</div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"> Course Lessons </div>             
-				<div class="panel-body">
-					test
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
+	@foreach($course->lessons as $lesson)
+		<div class="row">
+			<div class="col-md-9">
+				<a href="http://www.google.com" class="click-box">
+				<div class="panel panel-default">
+					<div class="panel-heading"> {{ $lesson->title }} </div>             
+					<div class="panel-body">
+						{{ $lesson->description }}
+						<input type="hidden" name="_token" value="{{ csrf_token() }}">
+						<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
+					</div>
 				</div>
-			</div>	
+				</a>
+			</div>
 		</div>
-	</div>
+	@endForeach
 	
-	<div class="clearfix"></div>
-	
-	<div class="row">
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"> Course Lessons </div>             
-				<div class="panel-body">
-					test
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
-				</div>
-			</div>	
-		</div>
-	</div>
+	<div class="clearfix"></div>	
 </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function(){
+			$(".click-box").click(function() {
+				window.location = $(this).find("a").attr("href"); 
+				return true;
+			});
+        });
+    </script>
 @endsection

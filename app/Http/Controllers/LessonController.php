@@ -3,6 +3,7 @@
 use App\Waikoa\Model\Lesson;
 use App\Waikoa\Model\Course;
 // use App\Schema;
+use DB;
 use App\Http\Requests;
 use Request;
 use Auth;
@@ -33,9 +34,18 @@ class LessonController extends Controller
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index($id)
 	{
-		$lessons = Lesson::all();
+		// redirect if model not found
+		try {
+			$course = Course::findOrFail($id);			
+			
+		} catch(ModelNotFoundException $e) {
+			return redirect("lessons")->with('warning', 'Record not found.');
+		}
+		
+		$lessons = $course->lessons;
+		
         return view('lesson.show')->with('lessons', $lessons);
 	}
 
@@ -118,8 +128,16 @@ class LessonController extends Controller
 			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
 		}
 		
-		$params = $lesson->labels();
-		$lesson = Helper::formatLessonDate($lesson);
+		$params = $lesson->labels();		
+		$format = [
+			'date' => 'toDateString',
+			'start_time' => 'format',
+			'end_time' => 'format',
+			'date_visible' => 'toDateString',
+			'email_on' => 'toDateString',
+		];
+		
+		$lesson = Helper::formatDate($lesson, $format);
 		$selected = Helper::LessonDisplayOptions($lesson);		
 		$params['selected'] = $selected;	
 		$params['course'] = $course;
@@ -151,17 +169,17 @@ class LessonController extends Controller
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy()
 	{
 		// redirect if model not found
 		try {
-			$lesson = Lesson::findOrFail($id);		
+			$lesson = Lesson::findOrFail(Request::get('les'));	
 		
 		} catch(ModelNotFoundException $e) {
-			return redirect("lessons")->withInput()->with('warning', 'Record not found.');
+			return redirect("lessons")->with('warning', 'Record not found.');
 		}
 		
 		$lesson->delete();
-		return redirect("lessons")->withInput()->with('success', 'lesson record deleted.');
+		return redirect("lessons")->with('success', 'lesson record deleted.');
 	}
 }

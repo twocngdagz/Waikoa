@@ -5,9 +5,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
 		
+			<!-- Breadbcrumbs -->
+			{!! Breadcrumbs::render('lessonCreate',$course) !!}
+		
 			<div class="page-header">
-                <h1><small>{{ $course->name }} - {{ $formName }}</small></h1>
-				{!! Breadcrumbs::render('lessonCreate',$course) !!}
+                <h1><small>{{ $course->name }} - {{ $formName }}</small></h1>				
             </div>
 			
 			@foreach($errors->all() as $error)
@@ -40,7 +42,7 @@
 						Basic Lesson Information
 						<div class="btn-group pull-right" style="margin-bottom: 1em;" role="group" aria-label="...">
 							@if($lesson->exists)
-								{!! link_to_action('LessonController@destroy', 'Delete', array('id'=>$lesson->id), array('class'=>'btn btn-danger btn-xs'))!!}
+								{!! link_to_action('LessonController@destroy', 'Delete', array('id'=>$lesson->course->id,'les'=>$lesson->id), array('class'=>'btn btn-danger btn-xs'))!!}
 							@endif
 						</div>
 					</div>

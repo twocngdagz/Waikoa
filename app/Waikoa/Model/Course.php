@@ -27,6 +27,24 @@ class Course extends BaseModel {
 		'class_size_c', 'course_material_schedule', 'always_on_pre', 'always_on_post', 'date_visible_offset', 'email_notif_offset',
 		'smtp_email', 'smtp_name', 'smtp_server', 'smtp_user', 'smtp_password','user_id'
 	];
+	
+	/**
+	 * Defines Relationship: Course Has Many Lessons
+	 * uses foreign key course_id
+	 */	
+	public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+	
+	/**
+	 * Defines Relationship: Course Has Many Lessons
+	 * uses foreign key course_id
+	 */	
+	public function lessons()
+    {
+        return $this->hasMany('App\Waikoa\Model\Lesson');
+    }
 
     /**
      * Display Class Size Values.

@@ -23,12 +23,16 @@
 	
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
+		
+			<!-- Breadbcrumbs -->
+			{!! Breadcrumbs::render() !!}
+		
 			<div class="page-header">
                 <h1><small>Lesson List</small></h1>
             </div>
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
 				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}				
-				{!! link_to_action('LessonController@create', 'New Lesson', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('CourseController@index', 'Courses', array(), array('class'=>'btn btn-default'))!!}
 			</div>
 		</div>
 	</div>

@@ -114,6 +114,18 @@ class CourseController extends Controller
 		$selected = Helper::displayOptions($course);        
 		$classSize = $course->classSize();		
 		$params = $course->labels();
+		
+		$format = [
+			'class_start' => 'toDateString',
+			'class_end' => 'toDateString',
+			'access_start' => 'toDateString',
+			'access_end' => 'toDateString',
+			'register_start' => 'toDateString',
+			'register_end' => 'toDateString',			
+		];
+		
+		$course = Helper::formatDate($course, $format);
+		
 		$params['classSize'] = $classSize;
 		$params['selected'] = $selected;
 		

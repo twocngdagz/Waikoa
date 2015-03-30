@@ -13,7 +13,7 @@ Breadcrumbs::register('courses', function($breadcrumbs)
     $breadcrumbs->push('Courses', route('courses'));
 });
 
-// Home > courses > edit
+// Home > courses > create
 Breadcrumbs::register('courseCreate', function($breadcrumbs)
 {
     $breadcrumbs->parent('home');
@@ -29,7 +29,22 @@ Breadcrumbs::register('courseEdit', function($breadcrumbs)
     $breadcrumbs->push('Edit');
 });
 
-// Home > courses > edit
+// Home > courses > page
+Breadcrumbs::register('coursePage', function($breadcrumbs, $model)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Courses', route('courses'));
+    $breadcrumbs->push($model->name);
+});
+
+// Home > lessons
+Breadcrumbs::register('lessons', function($breadcrumbs)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Lessons', route('lessons'));
+});
+
+// Home > lessons > create
 Breadcrumbs::register('lessonCreate', function($breadcrumbs, $course)
 {
     $breadcrumbs->parent('home');
@@ -37,24 +52,3 @@ Breadcrumbs::register('lessonCreate', function($breadcrumbs, $course)
     $breadcrumbs->push('Course Profile', route('courseEdit',$course->id));
     $breadcrumbs->push('Create');
 });
-
-// Home > Blog
-// Breadcrumbs::register('blog', function($breadcrumbs)
-// {
-    // $breadcrumbs->parent('home');
-    // $breadcrumbs->push('Blog', route('blog'));
-// });
-
-// Home > Blog > [Category]
-// Breadcrumbs::register('category', function($breadcrumbs, $category)
-// {
-    // $breadcrumbs->parent('blog');
-    // $breadcrumbs->push($category->title, route('category', $category->id));
-// });
-
-// Home > Blog > [Category] > [Page]
-// Breadcrumbs::register('page', function($breadcrumbs, $page)
-// {
-    // $breadcrumbs->parent('category', $page->category);
-    // $breadcrumbs->push($page->title, route('page', $page->id));
-// });
