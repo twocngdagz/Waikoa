@@ -77,4 +77,20 @@ class Helper {
 		return $selected;
 		
 	}
+
+    public static function generateCommentView($comment, $margin=0)
+    {
+        $comment_html = '<div class="emComment" id="comment_'.$comment->id .'" style="margin-left:' .$margin. 'px"'.'>
+                        <div class="emCommentImage">
+                              <img src="'. asset('img/default.gif') . '" width="32" height="32" alt="Gravatar" />
+                        </div>
+                        <div class="emCommentText">
+                            '.'<span class="emSenderName">'.$comment->user->name.'</span>: '.stripslashes($comment->message).'
+                        </div>
+                        <div class="emCommentInto">
+                            '.date_format($comment->created_at, 'm/d/Y g:i:s a').' &middot; <a href="javascript:replyToThisComment('. $comment->id .', \''.$comment->object_id.'\')">Reply</a>
+                        </div>
+                    </div>';
+        return $comment_html;
+    }
 }
