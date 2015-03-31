@@ -26,7 +26,7 @@ class CreateLessonRequest extends Request {
 	public function rules()
 	{
 		return [
-            'title' 			=> 'required|regex:/^[A-Za-z0-9\- ]+$/',			
+            'title' 			=> 'required|regex:/^[A-Za-z0-9\.\,\- ]+$/',			
 			'type' 				=> 'integer',
 			'date' 				=> 'date',
 			'url'				=> 'url',

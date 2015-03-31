@@ -56,7 +56,7 @@
 	@foreach($course->lessons as $lesson)
 		<div class="row">
 			<div class="col-md-9">
-				<a href="http://www.google.com" class="click-box">
+				<a href="/lesson/page/1" class="click-box">				
 				<div class="panel panel-default">
 					<div class="panel-heading"> {{ $lesson->title }} </div>             
 					<div class="panel-body">

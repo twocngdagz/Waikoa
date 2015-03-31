@@ -108,6 +108,16 @@ class LessonController extends Controller
 				->with('warning', 'Record not found.');
 		}
 		
+		$format = [
+			'date' => 'toDateString',
+			'start_time' => 'format',
+			'end_time' => 'format',
+			'date_visible' => 'toDateString',
+			'email_on' => 'toDateString',
+		];
+		
+		$lesson = Helper::formatDate($lesson, $format);
+		
 		$params = $lesson->labels($lesson);
 		$params['lesson'] = $lesson;
 		return view('lesson.page',$params);

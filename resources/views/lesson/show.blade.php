@@ -61,7 +61,7 @@
                                     <td>{{ $lesson->date }}</td>
                                     <td>{{ $lesson->start_time }}</td>
                                     <td><a href="{{action('LessonController@edit', array('id'=>$lesson->course->id, 'les'=>$lesson->id))}}" > Edit </a></td>
-                                    <td><a href="{{action('LessonController@page', array('id'=>$lesson->course->id))}}" > View </a></td>
+                                    <td><a href="{{action('LessonController@page', array('id'=>$lesson->course->id, 'les'=>$lesson->id))}}" > View </a></td>
                                 </tr>
                             @endforeach
                         </tbody>

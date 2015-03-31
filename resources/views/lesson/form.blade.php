@@ -27,9 +27,9 @@
 
 			<div class="btn-group pad-bottom" role="group" aria-label="...">				
 				{!! link_to_action('HomeController@index', 'Home', array(), array('class'=>'btn btn-default'))!!}
-				{!! link_to_action('LessonController@index', 'Lessons', array(), array('class'=>'btn btn-default'))!!}
+				{!! link_to_action('LessonController@index', 'Lessons', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
 				@if($lesson->exists)
-					{!! link_to_action('LessonController@create', 'New Lesson', array(), array('class'=>'btn btn-default'))!!}
+					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default'))!!}
 				@endif
 			</div>
 

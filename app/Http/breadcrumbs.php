@@ -52,3 +52,11 @@ Breadcrumbs::register('lessonCreate', function($breadcrumbs, $course)
     $breadcrumbs->push('Course Profile', route('courseEdit',$course->id));
     $breadcrumbs->push('Create');
 });
+
+// Home > lessons > page
+Breadcrumbs::register('lessonPage', function($breadcrumbs, $model)
+{
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Lessons', route('lessons'));
+    $breadcrumbs->push($model->title);
+});
