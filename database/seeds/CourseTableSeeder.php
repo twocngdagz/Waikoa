@@ -27,7 +27,8 @@ class CourseTableSeeder extends Seeder {
 			'smtp_name' => 'waikoa',
 			'smtp_server' => '127.0.0.1',
 			'smtp_user' => 'waikoa',
-			'smtp_password'	 => 'waikoaPass',
+			'smtp_password'	 => 'waikoaPass',			
+			'user_id'	 => 1,
             
         ]);  
 
@@ -50,6 +51,7 @@ class CourseTableSeeder extends Seeder {
 			'smtp_server' => '127.0.0.1',
 			'smtp_user' => 'waikoa2',
 			'smtp_password'	 => 'waikoaPass2',
+			'user_id'	 => 1,
             
         ]);
 		
@@ -72,6 +74,7 @@ class CourseTableSeeder extends Seeder {
 			'smtp_server' => '127.0.0.1',
 			'smtp_user' => 'waikoa2',
 			'smtp_password'	 => 'waikoaPass2',
+			'user_id'	 => 1,
         ]);
 		
 		$course = Course::create([			
@@ -93,6 +96,7 @@ class CourseTableSeeder extends Seeder {
 			'smtp_server' => '127.0.0.1',
 			'smtp_user' => 'waikoa2',
 			'smtp_password'	 => 'waikoaPass2',
+			'user_id'	 => 1,
             
         ]);
     }

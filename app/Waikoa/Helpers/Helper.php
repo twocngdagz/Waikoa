@@ -96,6 +96,25 @@ class Helper {
 	}
 	
 	/**
+	 * Checks URL if Youtube, Vimeo or audio
+	 *
+	 * @param string $url resource url for video or audio
+	 * @return string $type "youtube, vimeo, audio"
+	 */
+	public static function videoType($url) 
+	{
+		if (strpos($url, 'youtube')) {
+			$type = 'youtube';
+		} elseif (strpos($url, 'vimeo')) {
+			$type = 'vimeo';
+		} elseif (strpos($url, '.mp3') || strpos($url, '.wav') || strpos($url, '.mpeg')) {
+			$type = 'audio';
+		}
+		
+		return $type;
+	}
+	
+	/**
 	 * Sets selected values for Course Model Dropdown options
 	 *
 	 * @param  obj  $model course model
@@ -113,7 +132,7 @@ class Helper {
 		return $selected;
 
 	}
-
+	
     public static function generateCommentView($comment, $margin=0)
     {
         $comment_html = '<div class="emComment" id="comment_'.$comment->id .'" style="margin-left:' .$margin. 'px"'.'>

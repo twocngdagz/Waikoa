@@ -31,18 +31,19 @@
 		</div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-9">
-			<a href="http://www.google.com" class="click-box">
-				<div class="panel panel-default">
-					<div class="panel-heading"> {{ $lesson->title }} </div>             
-					<div class="panel-body">
-						{{ $lesson->description }}
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="hidden" name="Course[course_id]" value="{{ $lesson->id }}">
-					</div>
-				</div>
-			</a>		
+	<!-- Video Youtube or Vimeo -->
+	<div class="row pad-bottom">
+		<div class="col-md-9 text-center">
+			<div class="panel panel-default">
+				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-body">
+					@if($videoType == 'youtube')
+						<div id="ytplayer"></div>
+					@elseif ($videoType == 'vimeo')
+						<iframe src="{{ $lesson->url }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 			
+					@endif
+				</div>			
+			</div>
 		</div>
 		
 		<div class="col-md-3">
@@ -55,7 +56,39 @@
 		</div>
 	</div>
 	
-	<div class="clearfix"></div>	
+	<!-- Audio -->	
+	@if($videoType == 'audio')
+		<div class="row pad-bottom">
+			<div class="panel panel-default">
+				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-body">
+					<audio controls>
+						<source src="{{ $lesson->url }}" type="audio/ogg">
+						<source src="{{ $lesson->url }}" type="audio/mpeg">
+						Your browser does not support the audio element.
+					</audio>
+				</div>
+			</div>
+		</div>
+	@endif
+	
+	<div class="clearfix"></div>
+	
+	<div class="row">
+		<div class="col-md-9">			
+			<div class="panel panel-default">
+				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-body">
+					{{ $lesson->description }}
+					<input type="hidden" name="_token" value="{{ csrf_token() }}">
+					<input type="hidden" name="Course[course_id]" value="{{ $lesson->id }}">
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+	<div class="clearfix"></div>
+	
 </div>
 @endsection
 
@@ -65,7 +98,25 @@
 			$(".click-box").click(function() {
 				window.location = $(this).find("a").attr("href"); 
 				return true;
-			});
+			});			
         });
+		
+		// Load the IFrame Player API code asynchronously.
+			var tag = document.createElement('script');
+			tag.src = "https://www.youtube.com/player_api";
+			var firstScriptTag = document.getElementsByTagName('script')[0];
+			firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+			// Replace the 'ytplayer' element with an <iframe> and
+			// YouTube player after the API code downloads.
+			var player;
+			function onYouTubePlayerAPIReady() {
+				player = new YT.Player('ytplayer', {
+					height: '390',
+					width: '640',
+					videoId: '{{ $youtubeId }}'
+				});
+			}
+		
     </script>
 @endsection

@@ -120,6 +120,11 @@ class LessonController extends Controller
 		
 		$params = $lesson->labels($lesson);
 		$params['lesson'] = $lesson;
+		$videoType = Helper::videoType($lesson->url);		
+		$youtubeId = str_replace("https://www.youtube.com/watch?v=","",$lesson->url);	
+		$params['videoType'] = $videoType;
+		$params['youtubeId'] = $youtubeId;
+		
 		return view('lesson.page',$params);
 	}
 
