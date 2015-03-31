@@ -103,6 +103,7 @@ class Helper {
 	 */
 	public static function videoType($url) 
 	{
+		$type=null;
 		if (strpos($url, 'youtube')) {
 			$type = 'youtube';
 		} elseif (strpos($url, 'vimeo')) {

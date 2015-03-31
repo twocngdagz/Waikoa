@@ -15,3 +15,7 @@
 .pad-bottom-half {
 	margin-bottom: .5em;
 }
+
+label.force-text-left {
+	text-align: left!important;
+}

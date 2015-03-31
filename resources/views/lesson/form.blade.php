@@ -30,6 +30,7 @@
 				{!! link_to_action('LessonController@index', 'Lessons', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
 				@if($lesson->exists)
 					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default'))!!}
+					{!! link_to_action('LessonController@page', 'View Page', array('id'=>$course->id,'les'=>$lesson->id), array('class'=>'btn btn-default'))!!}
 				@endif
 			</div>
 
@@ -99,8 +100,8 @@
 					<div class="panel-body">											
 						@foreach ($content as $value)								
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
-								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-4 control-label')) !!}
-								<div class="col-md-6">
+								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-12 control-label force-text-left')) !!}
+								<div class="col-md-12">
 									{!! Form::textArea($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control')) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
 								</div>
@@ -112,13 +113,13 @@
 				<!-- Lesson Messages -->
 				<div class="panel panel-yellow">
 					<div class="panel-heading">
-						Lesson Messages						
+						Lesson Messages
 					</div>
 					<div class="panel-body">											
 						@foreach ($textArea as $value)								
 							<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">								
-								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-4 control-label')) !!}
-								<div class="col-md-6">
+								{!! Form::label($value, Lang::get('lesson.'.$value), array('class' => 'col-md-12 control-label force-text-left')) !!}
+								<div class="col-md-12">
 									{!! Form::textArea($value, $lesson->$value, array('id'=>$value, 'class'=>'form-control')) !!}
 									{!! $errors->first($value,'<span class="help-block">:message</span>') !!}									
 								</div>
@@ -182,4 +183,12 @@
             });
         });
     </script>
+	
+	<script>
+		CKEDITOR.replace( 'description' );
+		CKEDITOR.replace( 'content' );
+		CKEDITOR.replace( 'before_message' );
+		CKEDITOR.replace( 'during_message' );
+		CKEDITOR.replace( 'after_message' );
+	</script>
 @endsection

@@ -78,8 +78,8 @@
 		<div class="col-md-9">			
 			<div class="panel panel-default">
 				<div class="panel-heading"> {{ $lesson->title }} </div>             
-				<div class="panel-body">
-					{{ $lesson->description }}
+				<div class="panel-body">					
+					{!! $lesson->description !!}
 					<input type="hidden" name="_token" value="{{ csrf_token() }}">
 					<input type="hidden" name="Course[course_id]" value="{{ $lesson->id }}">
 				</div>

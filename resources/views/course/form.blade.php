@@ -242,5 +242,5 @@
                 });
             });
         });
-    </script>
+    </script>	
 @endsection
