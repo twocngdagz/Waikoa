@@ -46,7 +46,7 @@ return [
 	'always_on_pre' => 'Always On Pre', 
 	'always_on_post' => 'Always On Post', 
 	'date_visible_offset' => 'Date Visible Offset', 
-	'email_notif_offset' => 'Date Notification Offset',
+	'email_notif_offset' => 'Email Notification Offset',
 	'smtp_email' => 'SMTP Email', 
 	'smtp_name' => 'SMTP Name', 
 	'smtp_server' => 'SMTP Server', 

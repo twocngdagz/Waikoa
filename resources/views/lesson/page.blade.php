@@ -35,12 +35,14 @@
 	<div class="row pad-bottom">
 		<div class="col-md-9 text-center">
 			<div class="panel panel-default">
-				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-heading"> Video: {{ $lesson->url }} </div>             
 				<div class="panel-body">
 					@if($videoType == 'youtube')
 						<div id="ytplayer"></div>
 					@elseif ($videoType == 'vimeo')
 						<iframe src="{{ $lesson->url }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 			
+					@else
+						{!! link_to($lesson->url, $lesson->url, $attributes = array(), $secure = null) !!}
 					@endif
 				</div>			
 			</div>
@@ -60,7 +62,7 @@
 	@if($videoType == 'audio')
 		<div class="row pad-bottom">
 			<div class="panel panel-default">
-				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-heading"> Audio: {{ $lesson->url }} </div>             
 				<div class="panel-body">
 					<audio controls>
 						<source src="{{ $lesson->url }}" type="audio/ogg">
@@ -74,14 +76,27 @@
 	
 	<div class="clearfix"></div>
 	
+	<!-- Description -->	
 	<div class="row">
 		<div class="col-md-9">			
 			<div class="panel panel-default">
-				<div class="panel-heading"> {{ $lesson->title }} </div>             
+				<div class="panel-heading"> Description </div>             
 				<div class="panel-body">					
 					{!! $lesson->description !!}
-					<input type="hidden" name="_token" value="{{ csrf_token() }}">
-					<input type="hidden" name="Course[course_id]" value="{{ $lesson->id }}">
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+	<div class="clearfix"></div>
+	
+	<!-- Content -->	
+	<div class="row">
+		<div class="col-md-9">			
+			<div class="panel panel-default">
+				<div class="panel-heading"> Content </div>             
+				<div class="panel-body">					
+					<?php echo html_entity_decode($lesson->content); ?>
 				</div>
 			</div>
 		</div>		

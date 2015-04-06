@@ -88,6 +88,7 @@ class LessonController extends Controller
 		
 		$lesson = $lesson::create($data);		
 		return redirect()->route('lessonPage', ['id' => $data['course_id'], 'les' => $lesson->id])
+			->withInput()
 			->with('success', 'You have successfully created a lesson.');
 	}
 
@@ -179,6 +180,7 @@ class LessonController extends Controller
 		$lesson->save($data);
 		
 		return redirect()->route('lessonEdit', ['id' => $data['course_id'], 'les' => $lesson->id])
+			->withInput()	
 			->with('success', 'successfully updated!');		
     }
 

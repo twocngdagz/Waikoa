@@ -76,7 +76,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 	<script src="http://wvega.github.io/timepicker/resources/jquery-timepicker/jquery.timepicker.min.js"></script>
-	<script src="//cdn.ckeditor.com/4.4.7/standard/ckeditor.js"></script>
+	<script src="//cdn.ckeditor.com/4.4.7/full/ckeditor.js"></script>
 	@yield('scripts')
     @yield('comment_js')
 </body>

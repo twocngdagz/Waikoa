@@ -153,7 +153,7 @@
 				</div>				
 			{!! Form::close() !!}
         </div>
-    </div>
+    </div>	
 @endsection
 
 @section('scripts')
@@ -182,6 +182,20 @@
                 });
             });
         });
+		
+		// auto date offset
+		$('#date').change(function() {
+			  var date2 = $('#date').datepicker('getDate'); 
+			  date2.setDate(date2.getDate() + {{ $course->date_visible_offset }}); 
+			  $('#date_visible').datepicker('setDate', date2);
+		});
+		
+		// auto email offset
+		$('#date').change(function() {
+			  var date2 = $('#date').datepicker('getDate'); 
+			  date2.setDate(date2.getDate() + {{ $course->email_notif_offset }}); 
+			  $('#email_on').datepicker('setDate', date2);
+		});		
     </script>
 	
 	<script>
@@ -190,5 +204,8 @@
 		CKEDITOR.replace( 'before_message' );
 		CKEDITOR.replace( 'during_message' );
 		CKEDITOR.replace( 'after_message' );
+		
+		var test = CKEDITOR.instances['content'].getData();
+		console.log($(test).attr('src'));
 	</script>
 @endsection
