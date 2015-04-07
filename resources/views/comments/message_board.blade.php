@@ -22,30 +22,7 @@
                         <div  class="marketing_text">
                             <?php
                             $object_id = 'message_board';
-                            $CCOUNT = 10;
-                            $total    = count($comments);
-                            $counter  = 1;
-                            $html = '<div id="emContent_'.$object_id.'" class="emContent">';
-                            $sender = '';
-                            if($total > $CCOUNT){
-                                $html .= '<div class="emShowAllComments" id="emShowAllComments"><a href="javascript:viewAllComments();">View <span id="total_em_comments">'.$total.'</span> comments</a> <noscript><em>This page needs JavaScript to display all comments</em></noscript></div>';
-                            }
-                            foreach($comments as $comment){
-                                $html .=  App\Waikoa\Helpers\Helper::generateCommentView($comment);
-                                App\Waikoa\Model\MessageBoard\Comment::getCommentReplies($comment->id);
-                                $replies = App\Waikoa\Model\MessageBoard\Comment::getCommentArray();
-                                $counter++;
-                                foreach ($replies as $reply)
-                                {
-                                    $html .= $reply;
-                                    $counter++;
-                                }
-                                App\Waikoa\Model\MessageBoard\Comment::resetCounter();
-                                $replies = App\Waikoa\Model\MessageBoard\Comment::resetCommentArray();
-                            }
-                            $html .= '</div>';
-
-                            $html .= '<div id="emAddCommentHeader_'. $object_id . '">
+                            $html = '<div id="emAddCommentHeader_'. $object_id . '">
                                         <div id="emAddComment_'. $object_id . '" class="emAddComment">
                                             <form method="post" action="board/comment" onsubmit="return false;">
                                             <input type="hidden" name="_token" id="_token" value="' .  csrf_token()  . '">
@@ -57,7 +34,11 @@
                                             </span>
                                         </div>
                                     </div>';
-                            echo '<div class="emComments" object="'.$object_id.'" id="'.$object_id.'">'.$html.'</div>';
+                            echo '<div class="emComments" object="'.$object_id.'" id="'.$object_id.'" token="'. csrf_token() . '">
+                                    <div id="emContent_' . $object_id . '" class="emContent">'
+                                        .$html.'
+                                    </div>
+                                </div>';
                             ?>
 
                         </div>

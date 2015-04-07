@@ -11,7 +11,11 @@ class BoardController extends Controller
 
     public function index()
     {
-        $comments = Comment::getRootComment('message_board');
+        $comments = Comment::getRootComment('message_board', 3);
+        if (Request::ajax())
+        {
+            return response()->json($comments);
+        }
         return view('comments.message_board', compact('comments'));
     }
 
@@ -36,6 +40,21 @@ class BoardController extends Controller
         $data['id'] = $comment->id;
         $data['reply_to'] = $comment->reply_to ? $comment->reply_to : 0;
         return response()->json($data);
+    }
+
+    public function generateCommentView() {
+        $comment = Comment::findOrFail(Request::get('comment_id'));
+        return Helper::generateCommentView($comment);
+    }
+
+    public function getCommentReplies() {
+        Comment::getCommentReplies(Request::get('comment_id'));
+        return response()->json(Comment::getCommentArray());
+    }
+
+    public function resetCounter()
+    {
+        Comment::resetCounter();
     }
 
 }

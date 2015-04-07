@@ -2,7 +2,7 @@
 
 use App\Waikoa\Model\Course;
 use Carbon\Carbon;
-
+use App\User;
 class Helper {
 
     /**
@@ -141,10 +141,10 @@ class Helper {
                               <img src="'. asset('img/default.gif') . '" width="32" height="32" alt="Gravatar" />
                         </div>
                         <div class="emCommentText">
-                            '.'<span class="emSenderName">'.$comment->user->name.'</span>: '.stripslashes($comment->message).'
+                            '.'<span class="emSenderName">'.User::findOrFail($comment->user_id)->name.'</span>: '.stripslashes($comment->message).'
                         </div>
                         <div class="emCommentInto">
-                            '.date_format($comment->created_at, 'm/d/Y g:i:s a').' &middot; <a href="javascript:replyToThisComment('. $comment->id .', \''.$comment->object_id.'\')">Reply</a>
+                            '.date_format(new Carbon($comment->created_at), 'm/d/Y g:i:s a').' &middot; <a href="javascript:replyToThisComment('. $comment->id .', \''.$comment->object_id.'\')">Reply</a>
                         </div>
                     </div>';
         return $comment_html;

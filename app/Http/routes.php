@@ -55,7 +55,11 @@ Route::post('role/save',        'RoleController@save');
 
 // message board
 Route::get('board',             'BoardController@index');
+Route::post('board',            'BoardController@index');
 Route::post('board/comment',    'BoardController@add');
+Route::get('board/generateCommentView',   'BoardController@generateCommentView');
+Route::get('board/getCommentReplies',       'BoardController@getCommentReplies');
+Route::get('board/resetCounter',            'BoardController@resetCounter');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

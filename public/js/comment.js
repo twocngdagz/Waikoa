@@ -170,9 +170,90 @@ function viewAllComments(){
     $('emShowAllComments').hide();
 }
 
+function getComment(url)
+{
+    var object_id = $('.emComments').attr('object');
+    var token = $('.emComments').attr('token');
+    var html = '';
+    var showAll = $('#emContent_'+object_id).find('.emShowAllComments');
+    if (showAll)
+    {
+        showAll.hide()
+    }
+    if (url === null)
+    {
+        url = 'board';
+    }
+
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data:
+        {
+            object_id:  object_id,
+            _token: token
+        },
+        beforeSend: function() {
+            var loader = '<div class="emShowAllComments" id="CommentsLoader">Loading Messages <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></div>';
+            $('#emContent_'+object_id).append(loader);
+        },
+        complete: function() {
+            $('#CommentsLoader').remove();
+        },
+        success: function (comments) {
+            console.log('success call board');
+            $.each(comments.data, function(index, value)
+            {
+                $.ajax({
+                    url: 'board/generateCommentView',
+                    type: 'GET',
+                    data:
+                    {
+                        comment_id: value['id']
+                    },
+                    success: function(comment) {
+                        html += comment;
+                        console.log('success call commentView');
+                    },
+                    async: false
+                });
+                $.ajax({
+                    url: 'board/getCommentReplies',
+                    type: 'GET',
+                    data:
+                    {
+                        comment_id: value['id']
+                    },
+                    success: function($replies) {
+                        $.each($replies, function(index, reply)
+                        {
+                            html += reply;
+                            console.log('success call getCommentReplies');
+                        });
+                    },
+                    async: false
+
+                });
+                $.ajax({
+                    url: 'board/resetCounter',
+                    success: function() {
+                        console.log('success call resetCounter');
+                    }
+                })
+            });
+            if (comments.next_page_url !== null)
+            {
+                html += '<div class="emShowAllComments" id="emShowAllComments"><a href="javascript:getComment(\''+ comments.next_page_url +'\');">Load <span id="total_em_comments">more</span> comments</a> <noscript><em>This page needs JavaScript to display all comments</em></noscript></div>';
+            }
+            $('#emContent_'+object_id).append(html);
+        }
+    });
+}
+
 jQuery(document).ready(function () {
     //resetFields();
     $('#addEmComment_message_board').bind('keyup', function(event){
         adjustHeight(this);
     });
+    getComment(null);
 });
