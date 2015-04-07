@@ -42,7 +42,7 @@
 					@elseif ($videoType == 'vimeo')
 						<iframe src="{{ $lesson->url }}" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 			
 					@else
-						{!! link_to($lesson->url, $lesson->url, $attributes = array(), $secure = null) !!}
+						{!! link_to($lesson->url, $lesson->url, $attributes = array('target'=>'_blank'), $secure = null) !!}
 					@endif
 				</div>			
 			</div>
@@ -97,6 +97,18 @@
 				<div class="panel-heading"> Content </div>             
 				<div class="panel-body">					
 					<?php echo html_entity_decode($lesson->content); ?>
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+	<!-- download links -->	
+	<div class="row">
+		<div class="col-md-9">			
+			<div class="panel panel-default">
+				<div class="panel-heading"> Downloads </div>             
+				<div class="panel-body">										
+					<a href="{{ $lesson->download_url }}" download> {{ $lesson->download_url }} </a>
 				</div>
 			</div>
 		</div>		

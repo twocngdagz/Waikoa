@@ -65,6 +65,32 @@
 					</div>
 				</div>
 				
+				<!-- Lesson Media -->
+				<div class="panel panel-yellow">
+					<div class="panel-heading">
+						Audio/Media File (mp3)
+					</div>
+					<div class="panel-body">
+						
+						<!-- File Upload -->
+						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
+							{!! Form::label('file_name', Lang::get('lesson.file'), array('class' => 'col-md-4 control-label')) !!}							
+							<div class="col-md-6">
+								{!! Form::file('file_name','',array('id'=>'','class'=>'')) !!}
+							</div>
+						</div>
+						
+						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
+							{!! Form::label('file_name', Lang::get('lesson.file_name'), array('class' => 'col-md-4 control-label')) !!}								
+							<div class="col-md-6">
+								{!! Form::text('file_name', $lesson->file_name, array('id'=>'file_name', 'class'=>'form-control')) !!}
+								{!! $errors->first('file_name','<span class="help-block">:message</span>') !!}									
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
 				<!-- Lesson Options -->				
 				<div class="panel panel-yellow">
 					<div class="panel-heading">Lesson Options</div>             

@@ -173,7 +173,15 @@ class LessonController extends Controller
 	public function update(CreateLessonRequest $request) 
 	{
         $data = Request::All();		
-        $lesson = Lesson::findOrFail($data['lesson_id']);		
+        $lesson = Lesson::findOrFail($data['lesson_id']);	
+
+		// $file = Input::file('upload');
+		// if($file->getMimeType() == 'audio/mpeg') {
+			// valid
+		// }
+		// else {
+			// invalid
+		// }		
 		
 		// save model		
 		$lesson->fill($data);

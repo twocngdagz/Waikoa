@@ -37,6 +37,7 @@ class CreateLessonRequest extends Request {
 			'email_on' 			=> 'date',
 			'comments_allowed' 	=> 'integer', 					
 			'course_id' 		=> 'integer',
+			'file_name' 		=> 'max:10000|mimes:audio/mpeg,mp3' //a required, max 10000kb, mpeg or mp3
         ];
 	}
 	
@@ -55,6 +56,7 @@ class CreateLessonRequest extends Request {
 			'comments_allowed.integer' => Lang::get('lesson.error_comments_allowed_integer'),
 			'course_id.required'=> Lang::get('lesson.error_course_id_required'),
 			'course_id.integer'=> Lang::get('lesson.error_course_id_integer'),
+			'file_name.mimes'=> Lang::get('lesson.error_file_name_mimes'),
         ];
     }
 	

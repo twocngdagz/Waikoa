@@ -24,7 +24,7 @@ class Lesson extends BaseModel {
 	 */	
 	protected $fillable = ['title', 'description', 'content', 'type', 'date', 'url', 'download_url', 'start_time',
 		'end_time', 'date_visible', 'email_on', 'comments_allowed', 'before_message', 'during_message', 
-		'after_message', 'course_id'
+		'after_message', 'course_id', 'file_name', 'path'
 	];
 	
 	/**

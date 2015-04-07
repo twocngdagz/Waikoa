@@ -30,6 +30,8 @@ return [
 	'email_on' 			=> 'Email On',
 	'comments_allowed' 	=> 'Comments Allowed',
 	'course_id' 		=> 'Course ID',
+	'file' 				=> 'Mp3 File',
+	'file_name' 		=> 'Mp3 Name',
 		
 	// Error Messages
 	'error_title_required'=>'Title must not be blank.',            						
@@ -44,6 +46,7 @@ return [
 	'error_comments_allowed_integer'=>'Comments Allowed must have an integer value.',
 	'error_course_id_required'=>'Course ID must not be blank.',
 	'error_course_id_integer'=>'Course ID must have an integer value.',
+	'error_file_name_mimes'=>'File extension must be an audio file mpeg/mp3',
 	
 
 ];
