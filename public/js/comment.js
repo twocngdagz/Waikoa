@@ -92,7 +92,7 @@ function addEMComment(oid){
                 if(data.reply_to){
                     $('#comment_'+data.reply_to).after(data.html);
                 } else {
-                    $('#emContent_' + oid).append(data.html);
+                    $('#emAddCommentHeader_' + oid).after(data.html);
                 }
                 $('#comment_' + data.id).slideDown();
                 resetFields(oid);
