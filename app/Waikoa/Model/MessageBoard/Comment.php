@@ -35,9 +35,9 @@ class Comment extends Model {
      * @param $object_id
      * @return mixed
      */
-    public static function getRootComment($object_id)
+    public static function getRootComment($object_id, $total)
     {
-        return Comment::where('reply_to', null)->where('object_id', $object_id)->get();
+        return Comment::where('reply_to', null)->where('object_id', $object_id)->orderBy('created_at', 'desc')->paginate($total);
     }
 
 
