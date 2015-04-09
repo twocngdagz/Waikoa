@@ -52,9 +52,9 @@ class Helper {
 			}
 		}
 		
-		$selected = Self::selected($model, $selected, 'date_visible_offset');		
-		$selected = Self::selected($model, $selected, 'email_notif_offset');
-		$selected = Self::selected($model, $selected, 'course_material_schedule');
+		$selected = self::selected($model, $selected, 'date_visible_offset');		
+		$selected = self::selected($model, $selected, 'email_notif_offset');
+		$selected = self::selected($model, $selected, 'course_material_schedule');
 		
 		return $selected;
 	}

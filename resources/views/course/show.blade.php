@@ -52,7 +52,7 @@
                                 <th>Class Start</th>
                                 <th>Access Date</th>
                                 <th>Registration Date</th>
-                                <th></th>
+                                <th colspan="3">Options</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -65,6 +65,7 @@
                                     <td>{{ $course->register_start }}</td>
                                     <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > Edit </a></td>
                                     <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > View </a></td>
+                                    <td><a href="{{action('LessonController@create', array('id'=>$course->id))}}" > New Lesson </a></td>
                                 </tr>
                             @endforeach
                         </tbody>
