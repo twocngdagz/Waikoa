@@ -63,9 +63,9 @@
                                     <td>{{ $course->class_start }}</td>
                                     <td>{{ $course->access_start }}</td>
                                     <td>{{ $course->register_start }}</td>
-                                    <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > Edit </a></td>
-                                    <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > View </a></td>
-                                    <td><a href="{{action('LessonController@create', array('id'=>$course->id))}}" > New Lesson </a></td>
+                                    <td><a href="{{action('CourseController@edit', array('id'=>$course->id))}}" > <span class="glyphicon glyphicon-edit" aria-hidden="true"></span> Edit </a></td>
+                                    <td><a href="{{action('CourseController@page', array('id'=>$course->id))}}" > <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> View </a></td>
+                                    <td><a href="{{action('LessonController@create', array('id'=>$course->id))}}"> <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Lesson </a></td>
                                 </tr>
                             @endforeach
                         </tbody>
