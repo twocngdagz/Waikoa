@@ -61,14 +61,36 @@
 	<!-- Audio -->	
 	@if($videoType == 'audio')
 		<div class="row pad-bottom">
-			<div class="panel panel-default">
-				<div class="panel-heading"> Audio: {{ $lesson->url }} </div>             
-				<div class="panel-body">
-					<audio controls>
-						<source src="{{ $lesson->url }}" type="audio/ogg">
-						<source src="{{ $lesson->url }}" type="audio/mpeg">
-						Your browser does not support the audio element.
-					</audio>
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading"> Audio: {{ $lesson->url }} </div>             
+					<div class="panel-body">
+						<audio controls>
+							<source src="{{ $lesson->url }}" type="audio/ogg">
+							<source src="{{ $lesson->url }}" type="audio/mpeg">
+							Your browser does not support the audio element.
+						</audio>
+					</div>
+				</div>
+			</div>
+		</div>
+	@endif
+	
+	<div class="clearfix"></div>
+	
+	<!-- Mp3 -->	
+	@if(!empty($lesson->file_name))
+		<div class="row pad-bottom">
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading"> Audio: {{ $lesson->mp3_name }} </div>             
+					<div class="panel-body">
+						<audio controls>
+							<source src="{{ $lesson->file_name }}" type="audio/ogg">
+							<source src="{{ $lesson->file_name }}" type="audio/mpeg">
+							Your browser does not support the audio element.
+						</audio>
+					</div>
 				</div>
 			</div>
 		</div>

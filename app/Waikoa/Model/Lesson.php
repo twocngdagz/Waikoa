@@ -24,7 +24,7 @@ class Lesson extends BaseModel {
 	 */	
 	protected $fillable = ['title', 'description', 'content', 'type', 'date', 'url', 'download_url', 'start_time',
 		'end_time', 'date_visible', 'email_on', 'comments_allowed', 'before_message', 'during_message', 
-		'after_message', 'course_id', 'file_name', 'path'
+		'after_message', 'course_id', 'file_name', 'mp3_name'
 	];
 	
 	/**
@@ -47,7 +47,7 @@ class Lesson extends BaseModel {
         $params = [
             'lesson' => $this,
             'formName' => $this->exists ? 'Update Lesson' : 'Create Lesson',            
-            'information' => ['title', 'url', 'download_url'],
+            'information' => ['title', 'url', 'download_url', 'mp3_name', 'file_name'],
 			'content' => ['description', 'content'],
 			'textArea' => ['before_message', 'during_message', 'after_message'],
             'dropDown' => ['type', 'comments_allowed'],

@@ -30,7 +30,7 @@
 				{!! link_to_action('LessonController@index', 'Lessons', array('id'=>$course->id), array('class'=>'btn btn-default')) !!}
 				@if($lesson->exists)
 					{!! link_to_action('LessonController@create', 'New Lesson', array('id'=>$course->id), array('class'=>'btn btn-default'))!!}
-					{!! link_to_action('LessonController@page', 'View Page', array('id'=>$course->id,'les'=>$lesson->id), array('class'=>'btn btn-default'))!!}
+					{!! link_to_action('LessonController@page', 'View Page', array('id'=>$course->id,'les'=>$lesson->id), array('class'=>'btn btn-default', 'target'=>'_blank'))!!}
 				@endif
 			</div>
 
@@ -62,32 +62,6 @@
 								</div>
 							</div>							
 						@endforeach
-					</div>
-				</div>
-				
-				<!-- Lesson Media -->
-				<div class="panel panel-yellow">
-					<div class="panel-heading">
-						Audio/Media File (mp3)
-					</div>
-					<div class="panel-body">
-						
-						<!-- File Upload -->
-						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-							{!! Form::label('file_name', Lang::get('lesson.file'), array('class' => 'col-md-4 control-label')) !!}							
-							<div class="col-md-6">
-								{!! Form::file('file_name','',array('id'=>'','class'=>'')) !!}
-							</div>
-						</div>
-						
-						<div class="form-group {{ $errors->has($value) ? 'has-error' : '' }}">
-							{!! Form::label('file_name', Lang::get('lesson.file_name'), array('class' => 'col-md-4 control-label')) !!}								
-							<div class="col-md-6">
-								{!! Form::text('file_name', $lesson->file_name, array('id'=>'file_name', 'class'=>'form-control')) !!}
-								{!! $errors->first('file_name','<span class="help-block">:message</span>') !!}									
-							</div>
-						</div>
-						
 					</div>
 				</div>
 				
@@ -170,7 +144,7 @@
 						
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
+								<button type="submit" id="submit" class="btn btn-primary">
 									{{ $lesson->exists ? 'Save' : 'Create' }}
 								</button>
 							</div>

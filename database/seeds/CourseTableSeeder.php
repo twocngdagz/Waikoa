@@ -10,6 +10,7 @@ class CourseTableSeeder extends Seeder {
         DB::table('courses')->truncate();
 
         $course = Course::create([			
+			'name' => '1st Course',
 			'instructor_name' => 'First Instructor Name',
 			'comments_allowed' => 1,
 			'class_start' => date('y-m-d h:i:s',time()),
@@ -32,7 +33,8 @@ class CourseTableSeeder extends Seeder {
             
         ]);  
 
-		$course = Course::create([			
+		$course = Course::create([		
+			'name' => '2nd Course',		
 			'instructor_name' => 'Second Instructor Name',
 			'comments_allowed' => 1,
 			'class_start' => date('y-m-d h:i:s',time()),
@@ -55,7 +57,8 @@ class CourseTableSeeder extends Seeder {
             
         ]);
 		
-		$course = Course::create([			
+		$course = Course::create([	
+			'name' => '3rd Course',		
 			'instructor_name' => 'Third Instructor Name',
 			'comments_allowed' => 1,
 			'class_start' => date('y-m-d h:i:s',time()),
@@ -77,7 +80,8 @@ class CourseTableSeeder extends Seeder {
 			'user_id'	 => 1,
         ]);
 		
-		$course = Course::create([			
+		$course = Course::create([	
+			'name' => '4th Course',
 			'instructor_name' => 'Fourth Instructor Name',
 			'comments_allowed' => 1,
 			'class_start' => date('y-m-d h:i:s',time()),

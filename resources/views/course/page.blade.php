@@ -56,13 +56,11 @@
 	@foreach($course->lessons as $lesson)
 		<div class="row">
 			<div class="col-md-9">
-				<a href="/lesson/page/1" class="click-box">				
+				<a href="{{action('LessonController@page', array('id'=>$course->id, 'les'=>$lesson->id))}}" class="click-box">				
 				<div class="panel panel-default">
 					<div class="panel-heading"> {{ $lesson->title }} </div>             
 					<div class="panel-body">
-						{{ $lesson->description }}
-						<input type="hidden" name="_token" value="{{ csrf_token() }}">
-						<input type="hidden" name="Course[course_id]" value="{{ $course->id }}">
+						{{ $lesson->description }}						
 					</div>
 				</div>
 				</a>
