@@ -72,8 +72,8 @@ class Helper {
 			'comments_allowed' => [0=>'', 1=>'']	
 		];
 		
-		$selected = Self::selected($model, $selected, 'type');
-		$selected = Self::selected($model, $selected, 'comments_allowed');
+		$selected = self::selected($model, $selected, 'type');
+		$selected = self::selected($model, $selected, 'comments_allowed');
 		
 		return $selected;
 	}
