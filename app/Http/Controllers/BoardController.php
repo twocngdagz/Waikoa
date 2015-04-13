@@ -9,9 +9,14 @@ use App\Waikoa\Helpers\Helper;
 class BoardController extends Controller
 {
 
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
-        $comments = Comment::getRootComment('message_board', 3);
+        $comments = Comment::getRootComment(Request::get('object_id'), 3);
         if (Request::ajax())
         {
             return response()->json($comments);
