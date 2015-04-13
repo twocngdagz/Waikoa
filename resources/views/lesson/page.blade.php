@@ -1,5 +1,13 @@
 @extends('app')
 
+@section('comment_css')
+<link href="{{asset('/css/main.css')}}" rel="stylesheet">
+@endsection
+
+@section('comment_js')
+<script type="text/javascript" src="{{asset('js/comment.js')}}"></script>
+@endsection
+
 @section('content')
 <div class="container">
 
@@ -137,6 +145,24 @@
 	</div>
 	
 	<div class="clearfix"></div>
+
+
+    <!-- message board -->
+    <div class="row">
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading"> Message Board </div>
+                <div class="panel-body">
+                    <div  class="marketing_area">
+                        <div align="center" ><?php //echo $this->successMsg; ?></div>
+                        @include('partials.facebook_comment', ['object_id'=>'message_board_lesson_'.$lesson->id])
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
 	
 </div>
 @endsection

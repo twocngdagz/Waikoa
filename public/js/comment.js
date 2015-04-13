@@ -82,7 +82,7 @@ function addEMComment(oid){
         $('#emAddButton_' + oid).attr('disabled', 'true');
 
         $.post(
-            'board/comment', {
+            '/board/comment', {
                 comment: myComment.val(),
                 object_id:    oid,
                 _token : $('#_token').val(),
@@ -182,7 +182,7 @@ function getComment(url)
     }
     if (url === null)
     {
-        url = 'board';
+        url = '/board';
     }
 
     $.ajax({
@@ -205,7 +205,7 @@ function getComment(url)
             $.each(comments.data, function(index, value)
             {
                 $.ajax({
-                    url: 'board/generateCommentView',
+                    url: '/board/generateCommentView',
                     type: 'GET',
                     data:
                     {
@@ -218,7 +218,7 @@ function getComment(url)
                     async: false
                 });
                 $.ajax({
-                    url: 'board/getCommentReplies',
+                    url: '/board/getCommentReplies',
                     type: 'GET',
                     data:
                     {
@@ -235,7 +235,7 @@ function getComment(url)
 
                 });
                 $.ajax({
-                    url: 'board/resetCounter',
+                    url: '/board/resetCounter',
                     success: function() {
                         console.log('success call resetCounter');
                     }
