@@ -26,50 +26,53 @@
 	<![endif]-->
 </head>
 <body>
-    <div id="fb-root"></div>
-    <script>(function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=120343441450239&version=v2.3";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));</script>
-	<nav class="navbar navbar-default">
-		<div class="container-fluid">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-					<span class="sr-only">Toggle Navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Waikoa</a>
-			</div>
+<!--	<nav class="navbar navbar-default">-->
+<!--		<div class="container-fluid">-->
+<!--			<div class="navbar-header">-->
+<!--				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">-->
+<!--					<span class="sr-only">Toggle Navigation</span>-->
+<!--					<span class="icon-bar"></span>-->
+<!--					<span class="icon-bar"></span>-->
+<!--					<span class="icon-bar"></span>-->
+<!--				</button>-->
+<!--				<a class="navbar-brand" href="#">Waikoa</a>-->
+<!--			</div>-->
+<!---->
+<!--			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
+<!--				<ul class="nav navbar-nav">-->
+<!--					<li><a href="/">Home</a></li>-->
+<!--				</ul>-->
+<!---->
+<!--				<ul class="nav navbar-nav navbar-right">-->
+<!--					@if (Auth::guest())-->
+<!--						<li><a href="/auth/login">Login</a></li>-->
+<!--						<li><a href="/auth/register">Register</a></li>-->
+<!--					@else-->
+<!--						<li class="dropdown">-->
+<!--							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>-->
+<!--							<ul class="dropdown-menu" role="menu">								-->
+<!--                                <li><a href="/courses/">Courses</a></li>                                -->
+<!--                                <li><a href="/user/profile">Profile</a></li>-->
+<!--								<li><a href="/auth/logout">Logout</a></li>-->
+<!--							</ul>-->
+<!--						</li>-->
+<!--					@endif-->
+<!--				</ul>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</nav>-->
+    <div class="container" style="background: none repeat scroll 0 0 #ffffff; padding: 0;">
+        <div class="row">
+            <div class="col-md-12">
+                <img class="img-responsive" src="http://placehold.it/1200x260" alt="">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 20px">
+            @yield('content');
+        </div>
+    </div>
 
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="/">Home</a></li>
-				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
-					@if (Auth::guest())
-						<li><a href="/auth/login">Login</a></li>
-						<li><a href="/auth/register">Register</a></li>
-					@else
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">								
-                                <li><a href="/courses/">Courses</a></li>                                
-                                <li><a href="/user/profile">Profile</a></li>
-								<li><a href="/auth/logout">Logout</a></li>
-							</ul>
-						</li>
-					@endif
-				</ul>
-			</div>
-		</div>
-	</nav>
-	@yield('content')
 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

@@ -30,7 +30,9 @@ class WaikoaRegistrar implements Registrar {
      */
     public function create(array $data)
     {
-        return User::create([
+        $member_role = Role::whereName('Member')->get()->first();
+        $course = Course::findOrFail($data['course_id']);
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
@@ -46,6 +48,9 @@ class WaikoaRegistrar implements Registrar {
             'is_share_contact' => $data['is_share_contact'],
             'level' => $data['level']
         ]);
+        $user->courses()->save($course);
+        $user->roles()->save($member_role);
+        return $user;
     }
 
 }

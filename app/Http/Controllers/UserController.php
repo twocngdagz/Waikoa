@@ -103,4 +103,11 @@ class UserController extends Controller {
 
     }
 
+    public function course()
+    {
+        $user = Auth::user();
+        $course = $user->courses()->first();
+        return view('course.page', compact('course'));
+    }
+
 }

@@ -133,7 +133,16 @@ class Helper {
 		return $selected;
 
 	}
-	
+
+
+    /**
+     *
+     * Generate the html for comments
+     *
+     * @param $comment
+     * @param int $margin
+     * @return string
+     */
     public static function generateCommentView($comment, $margin=0)
     {
         $comment_html = '<div class="emComment" id="comment_'.$comment->id .'" style="margin-left:' .$margin. 'px"'.'>
@@ -148,5 +157,26 @@ class Helper {
                         </div>
                     </div>';
         return $comment_html;
+    }
+
+
+
+    public static function getCoursesForRegistration()
+    {
+        $courses = Course::all();
+        $courses_id = array();
+        foreach ($courses as $course)
+        {
+            $register_start = new Carbon($course->register_start);
+            $register_end = new Carbon($course->register_end);
+            $now = Carbon::now();
+
+            if ($now->between($register_start, $register_end, true))
+            {
+                $courses_id[] = $course->id;
+            }
+        }
+
+        return Course::whereIn('id', $courses_id)->get();
     }
 }

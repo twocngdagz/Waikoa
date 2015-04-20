@@ -28,6 +28,8 @@ return [
     'group_2_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
     'group_3_description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.',
     'register' => 'Register',
+    'courses' => 'Courses',
+    'panel_courses' => 'Select a Course',
 
     'page_title' => 'User Registration',
     'credentials' => 'Credentials',

@@ -36,6 +36,11 @@ class Course extends BaseModel {
     {
         return $this->belongsTo('App\User');
     }
+
+    public function enrollees()
+    {
+        return $this->belongsToMany('App\User', 'course_user', 'course_id', 'user_id');
+    }
 	
 	/**
 	 * Defines Relationship: Course Has Many Lessons

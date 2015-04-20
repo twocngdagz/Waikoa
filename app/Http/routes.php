@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/',                 'WelcomeController@index');
-Route::get('home', 				['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/',                 ['as' => 'home', 'uses' => 'HomeController@index']);
+//Route::get('home', 				['as' => 'home', 'uses' => 'HomeController@index']);
 
 // course routes
 Route::get('courses',           	['as' => 'courses', 'uses' => 'CourseController@index']);
@@ -41,6 +41,8 @@ Route::get('user/edit/{id}',    'UserController@edit')->where('id','\d+');
 Route::post('user/update',      'UserController@update');
 Route::get('user/profile',      'UserController@getProfile')->where('id','\d+');
 Route::post('user/profile',     'UserController@saveProfile');
+
+Route::get('user/course',       'UserController@course');
 
 
 Route::post('pay',              'PaymentController@pay');

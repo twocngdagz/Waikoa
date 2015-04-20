@@ -1,12 +1,23 @@
 @extends('app')
 
 @section('content')
-<div class="container-fluid">
+<div class="col-md-3">
+    <div class="panel panel-default">
+        <div class="panel-heading">Welcome {{Auth::user()->name}}</div>
+        <div class="panel-body">
+            <ul class="nav nav-pills nav-stacked" id="user-menu">
+                <li role="presentation" ><a href="{{action('UserController@course')}}">Course Home</a></li>
+                <li role="presentation"><a href="#">Fellow Coaches</a></li>
+                <li role="presentation"><a href="#">My Goals</a></li>
+                <li role="presentation" class="active"><a href="/user/profile">My Profile</a></li>
+                <li role="presentation"><a href="/auth/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="col-md-9">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="page-header">
-                <h1><small>Your Profile</small></h1>
-            </div>
+        <div class="col-md-12">
             <form class="form-horizontal" role="form" method="POST" action="/user/profile">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="user_id" value="{{ $user->id }}">
@@ -24,11 +35,11 @@
                         </div>
                         @endif
                         @if (isset($success))
-                            @if ($success)
-                                <div class="alert alert-success">
-                                    <strong>Congrats</strong> You have save your profile successfully.<br><br>
-                                </div>
-                            @endif
+                        @if ($success)
+                        <div class="alert alert-success">
+                            <strong>Congrats</strong> You have save your profile successfully.<br><br>
+                        </div>
+                        @endif
                         @endif
                         <div class="form-group">
                             <label class="col-md-4 control-label">Name</label>

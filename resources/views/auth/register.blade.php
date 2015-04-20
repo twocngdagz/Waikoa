@@ -51,6 +51,21 @@
                     </div>
                 </div>
                 <div class="panel panel-default">
+                    <div class="panel-heading">{{Lang::get('user.panel_courses')}}</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-4 control-label">{{Lang::get('user.courses')}}</label>
+                            <div class="col-md-6">
+                                <select class="form-control" name="course_id">
+                                    @foreach(App\Waikoa\Helpers\Helper::getCoursesForRegistration() as $course)
+                                        <option value="{{$course->id}}">{{$course->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
                     <div class="panel-heading">{{Lang::get('user.credentials')}}</div>
                     <div class="panel-body">
                         <div class="form-group">
