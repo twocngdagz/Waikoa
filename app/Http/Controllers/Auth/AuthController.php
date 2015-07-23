@@ -30,6 +30,7 @@ class AuthController extends Controller {
 
 
     protected $redirectPath = "user/course";
+    protected $loginPath = "/";
 	public function __construct(Guard $auth, Registrar $registrar)
 	{
 		$this->auth = $auth;

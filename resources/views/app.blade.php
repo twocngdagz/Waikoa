@@ -68,7 +68,7 @@
             </div>
         </div>
         <div class="row" style="margin-top: 20px">
-            @yield('content');
+            @yield('content')
         </div>
     </div>
 

@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        @foreach($course->lessons as $lesson)
+        @foreach($lessons as $lesson)
             <div class="row">
                 <div class="col-md-12">
                     <a href="{{action('LessonController@page', array('id'=>$course->id, 'les'=>$lesson->id))}}" class="click-box">

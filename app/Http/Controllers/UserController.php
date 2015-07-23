@@ -106,8 +106,9 @@ class UserController extends Controller {
     public function course()
     {
         $user = Auth::user();
-        $course = $user->courses()->first();
-        return view('course.page', compact('course'));
+        $course = $user->courses->first();
+        $lessons = $user->courses()->has('lessons')->get();
+        return view('course.page', compact('lessons', 'course'));
     }
 
 }
